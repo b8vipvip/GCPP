@@ -1,0 +1,22 @@
+{
+  "status": "research-prototype",
+  "date": "2026-08-29",
+  "model": "generic scoped claims + provenance/attestation + conservative unknown-dependence policy",
+  "passed": 12,
+  "total": 12,
+  "vectors": [
+    {"id":"R2-T1-HIDDEN-SHARED-BASE","expected":"UNKNOWN_DEPENDENCE_NO_AMPLIFICATION","actual":"UNKNOWN_DEPENDENCE_NO_AMPLIFICATION","pass":true},
+    {"id":"R2-T2-HIDDEN-DISTILLATION-LINEAGE","expected":"UNKNOWN_DEPENDENCE_NO_AMPLIFICATION","actual":"UNKNOWN_DEPENDENCE_NO_AMPLIFICATION","pass":true},
+    {"id":"R2-T3-SHARED-PRETRAINING-DIFFERENT-VENDORS","expected":"UNKNOWN_DEPENDENCE_NO_AMPLIFICATION","actual":"UNKNOWN_DEPENDENCE_NO_AMPLIFICATION","pass":true},
+    {"id":"R2-T4-PRIVATE-RAG-OVERLAP","expected":"BOUNDED_DEPENDENCE_DISCLOSURE","actual":"BOUNDED_DEPENDENCE_DISCLOSURE","pass":true},
+    {"id":"R2-T5-DYNAMIC-PERSUASION","expected":"DYNAMIC_DEPENDENCE","actual":"DYNAMIC_DEPENDENCE","pass":true},
+    {"id":"R2-T6-CLAIMED-INDEPENDENCE-NO-EVIDENCE","expected":"UNVERIFIED_INDEPENDENCE_CLAIM","actual":"UNVERIFIED_INDEPENDENCE_CLAIM","pass":true},
+    {"id":"R2-T7-CORRELATION-CERTIFICATE-DRIFT","expected":"STALE_CERT_DOWNGRADE","actual":"STALE_CERT_DOWNGRADE","pass":true},
+    {"id":"R2-T8-PRIVACY-PRESERVING-DISCLOSURE","expected":"BOUNDED_DEPENDENCE_DISCLOSURE","actual":"BOUNDED_DEPENDENCE_DISCLOSURE","pass":true},
+    {"id":"R2-T9-MALICIOUS-DEPENDENCY-OMISSION","expected":"UNKNOWN_DEPENDENCE_NO_AMPLIFICATION","actual":"UNKNOWN_DEPENDENCE_NO_AMPLIFICATION","pass":true},
+    {"id":"R2-T10-HIGH-STAKES-UNKNOWN-GRAPH","expected":"ABSTAIN_OR_SINGLE_SOURCE_BOUND","actual":"ABSTAIN_OR_SINGLE_SOURCE_BOUND","pass":true},
+    {"id":"R2-T11-LATE-DEPENDENCY-DISCOVERY","expected":"REASSESS_AND_DOWNGRADE","actual":"REASSESS_AND_DOWNGRADE","pass":true},
+    {"id":"R2-T12-CROSS-DOMAIN-CALIBRATION","expected":"OUT_OF_SCOPE_RECALIBRATE","actual":"OUT_OF_SCOPE_RECALIBRATE","pass":true}
+  ],
+  "interpretation": "All R2 vectors can be handled conservatively without an AI-specific wire primitive. Hidden dependence cannot be inferred away; absence of disclosed dependence is not evidence of independence. Where useful bounded claims are available, generic attestation/credential/selective-disclosure mechanisms can carry them. This weakens the case for a new Epistemic Interoperability protocol and leaves only a possible shared assurance vocabulary/profile gap."
+}
