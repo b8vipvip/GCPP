@@ -1,0 +1,8 @@
+{
+  "status":"research-prototype",
+  "date":"2026-08-29",
+  "model":"minimal remediation-objective entailment with no implicit guarantee upgrade",
+  "passed":12,
+  "total":12,
+  "interpretation":"All first U1 false-completion vectors match expected results under a deliberately minimal semantic model. This does not establish a new protocol. It supports further investigation of a public remediation-semantics framework whose main value would be cross-vendor objective non-equivalence, proof-scope and revalidation rules rather than transport or policy syntax."
+}
