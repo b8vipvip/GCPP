@@ -1,0 +1,22 @@
+{
+  "status": "research-prototype",
+  "date": "2026-08-29",
+  "model": "generic assurance-contract metadata + conservative runtime applicability checks",
+  "passed": 12,
+  "total": 12,
+  "vectors": [
+    {"id":"C0-T1-SILENT-MODEL-UPDATE","expected":"CONTRACT_STALE_REASSESS_REQUIRED","actual":"CONTRACT_STALE_REASSESS_REQUIRED","pass":true},
+    {"id":"C0-T2-OUT-OF-DOMAIN","expected":"ASSUMPTION_VIOLATED","actual":"ASSUMPTION_VIOLATED","pass":true},
+    {"id":"C0-T3-SELF-EVALUATION","expected":"EVIDENCE_SELF_ASSERTED","actual":"EVIDENCE_SELF_ASSERTED","pass":true},
+    {"id":"C0-T4-CORRELATED-FAILURE","expected":"NO_VALID_COMPOSITION_RULE","actual":"NO_VALID_COMPOSITION_RULE","pass":true},
+    {"id":"C0-T5-SEQUENTIAL-COMPOSITION","expected":"COMPOSE_USING_DECLARED_RULE","actual":"COMPOSE_USING_DECLARED_RULE","pass":true},
+    {"id":"C0-T6-PROMPT-TOOL-CHANGE","expected":"COMPONENT_STATE_CHANGED_REASSESS_REQUIRED","actual":"COMPONENT_STATE_CHANGED_REASSESS_REQUIRED","pass":true},
+    {"id":"C0-T7-BENCHMARK-CONTAMINATION","expected":"EVIDENCE_INVALIDATED_REASSESS_REQUIRED","actual":"EVIDENCE_INVALIDATED_REASSESS_REQUIRED","pass":true},
+    {"id":"C0-T8-METRIC-COLLISION","expected":"METRIC_INCOMPARABLE","actual":"METRIC_INCOMPARABLE","pass":true},
+    {"id":"C0-T9-CAPABILITY-AS-ACTION-SAFETY","expected":"GUARANTEE_SCOPE_MISMATCH","actual":"GUARANTEE_SCOPE_MISMATCH","pass":true},
+    {"id":"C0-T10-LATE-ASSUMPTION-FAILURE","expected":"POSTHOC_INVALIDATION_EXTERNAL_EFFECT_REMAINS","actual":"POSTHOC_INVALIDATION_EXTERNAL_EFFECT_REMAINS","pass":true},
+    {"id":"C0-T11-DEPENDENCY-TOOL-CHANGE","expected":"DEPENDENCY_ASSUMPTION_VIOLATED","actual":"DEPENDENCY_ASSUMPTION_VIOLATED","pass":true},
+    {"id":"C0-T12-PARTIAL-ASSUMPTION-OBSERVATION","expected":"ASSUMPTION_UNVERIFIED_GUARANTEE_NOT_ESTABLISHED","actual":"ASSUMPTION_UNVERIFIED_GUARANTEE_NOT_ESTABLISHED","pass":true}
+  ],
+  "interpretation": "All first C0 safety vectors are expressible using generic component-state binding, scoped assumptions, metric semantics, evidence status, dependency conditions and conservative invalidation. This materially weakens the need for an independent AI Assurance Contract wire protocol."
+}
