@@ -1,0 +1,18 @@
+{
+  "status": "research-prototype",
+  "date": "2026-08-29",
+  "model": "authority-owned relationship state + version/epoch + optional atomic coordination",
+  "passed": 8,
+  "total": 8,
+  "vectors": [
+    {"id":"R3-T1-MULTI-ISSUER-FORK","expected":"UNRESOLVED","actual":"UNRESOLVED","pass":true},
+    {"id":"R3-T2-OBLIGATION-DOUBLE-ASSIGNMENT","expected":"CONFLICT","actual":"CONFLICT","pass":true},
+    {"id":"R3-T3-SUCCESSOR-RACE","expected":"REJECT_STALE","actual":"REJECT_STALE","pass":true},
+    {"id":"R3-T4-PROVIDER-DIES-MID-SUCCESSION","expected":"UNRESOLVED","actual":"UNRESOLVED","pass":true},
+    {"id":"R3-T5-REPUTATION-SPLIT","expected":"REISSUE_REQUIRED","actual":"REISSUE_REQUIRED","pass":true},
+    {"id":"R3-T6-MERGE-CONFLICTING-DUTIES","expected":"CONFLICT","actual":"CONFLICT","pass":true},
+    {"id":"R3-T7-REVOCATION-DURING-SUCCESSION","expected":"REJECT_STALE","actual":"REJECT_STALE","pass":true},
+    {"id":"R3-T8-PARTIAL-EVIDENCE-LOSS","expected":"UNRESOLVED","actual":"UNRESOLVED","pass":true}
+  ],
+  "interpretation": "All first R3 vectors match expected results using generic coordination primitives. This weakens, rather than strengthens, the case for a new Agent Succession wire protocol. It does not establish cross-implementation interoperability or Byzantine safety."
+}
