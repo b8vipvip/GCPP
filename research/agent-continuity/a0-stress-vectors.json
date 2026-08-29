@@ -1,0 +1,104 @@
+{
+  "status": "research-hypothesis",
+  "version": "a0.1",
+  "date": "2026-08-29",
+  "purpose": "Machine-readable adversarial vectors for Agent Continuity and Succession research. These are not normative protocol tests.",
+  "vectors": [
+    {
+      "id": "A0-T1-MODEL-REPLACEMENT",
+      "operation": "model_replacement",
+      "primary_risk": "silent_assurance_inheritance",
+      "preservation_candidate": ["logical_identity", "obligations"],
+      "must_reassess": ["model_behavior", "model_specific_assurance", "possibly_authority"],
+      "forbidden_default": "all_prior_assurance_preserved"
+    },
+    {
+      "id": "A0-T2-RUNTIME-MIGRATION",
+      "operation": "runtime_migration",
+      "primary_risk": "instance_binding_reuse",
+      "preservation_candidate": ["logical_identity", "memory", "obligations"],
+      "must_reassess": ["execution_instance", "runtime_attestation", "network_binding"],
+      "forbidden_default": "old_runtime_binding_automatically_valid"
+    },
+    {
+      "id": "A0-T3-KEY-ROTATION",
+      "operation": "key_rotation",
+      "primary_risk": "unproven_successor_key",
+      "preservation_candidate": ["logical_identity"],
+      "requires_evidence": ["old_key_authorization_or_recovery_authority_or_principal_authorization"],
+      "forbidden_default": "new_key_possession_implies_full_agent_continuity"
+    },
+    {
+      "id": "A0-T4-MEMORY-MIGRATION",
+      "operation": "memory_migration",
+      "primary_risk": "identity_cloning_from_copyable_state",
+      "preservation_candidate": ["memory"],
+      "forbidden_default": "memory_copy_implies_exclusive_agent_identity"
+    },
+    {
+      "id": "A0-T5-CHECKPOINT-ROLLBACK",
+      "operation": "checkpoint_rollback",
+      "primary_risk": "revocation_or_spent_right_resurrection",
+      "must_preserve_monotonically": ["external_effects", "revocations", "spent_capabilities", "fulfilled_obligations"],
+      "forbidden_default": "local_checkpoint_defines_complete_current_world_state"
+    },
+    {
+      "id": "A0-T6-AGENT-FORK",
+      "operation": "agent_fork",
+      "primary_risk": "authority_multiplication",
+      "requires_explicit_policy": ["authority_partition", "obligation_assignment", "successor_identity", "reputation_applicability"],
+      "forbidden_default": "each_child_inherits_full_parent_authority"
+    },
+    {
+      "id": "A0-T7-AGENT-MERGE",
+      "operation": "agent_merge",
+      "primary_risk": "privilege_union",
+      "requires_explicit_policy": ["new_successor_grants", "obligation_assignment", "conflict_resolution"],
+      "forbidden_default": "merged_authority_equals_union_of_parent_authorities"
+    },
+    {
+      "id": "A0-T8-PRINCIPAL-TRANSFER",
+      "operation": "principal_transfer",
+      "primary_risk": "principal_scoped_authority_leakage",
+      "preservation_candidate": ["logical_identity", "some_obligations"],
+      "must_reassess": ["principal_relation", "principal_scoped_authority"],
+      "forbidden_default": "agent_transfer_implies_full_principal_authority_transfer"
+    },
+    {
+      "id": "A0-T9-AUTHORITY-REVOCATION",
+      "operation": "authority_revocation",
+      "primary_risk": "stale_descendant_or_snapshot_reuse",
+      "must_preserve_monotonically": ["revocation_state"],
+      "requires_explicit_scope": ["logical_agent", "instance", "key", "branch", "descendants"],
+      "forbidden_default": "rollback_or_fork_reactivates_revoked_authority"
+    },
+    {
+      "id": "A0-T10-OUTSTANDING-OBLIGATIONS",
+      "operation": "lifecycle_transition_with_open_obligations",
+      "primary_risk": "responsibility_loss",
+      "allowed_terminal_states": ["retained", "assigned", "partitioned", "fulfilled", "authorized_cancel", "explicit_unresolved"],
+      "forbidden_default": "obligation_disappears_when_instance_ends"
+    },
+    {
+      "id": "A0-T11-REPUTATION-INHERITANCE",
+      "operation": "fork_or_merge_with_reputation",
+      "primary_risk": "reputation_cloning_or_additive_escalation",
+      "requires_explicit_policy": ["lineage_scope", "successor_semantics", "post_transition_divergence"],
+      "forbidden_default": "reputation_is_copyable_or_additive_state"
+    },
+    {
+      "id": "A0-T12-PROVIDER-SHUTDOWN",
+      "operation": "provider_shutdown",
+      "primary_risk": "provider_locked_identity_and_obligation_orphaning",
+      "requires_research": ["provider_independent_succession_evidence", "exportable_transition_state", "safe_termination"],
+      "forbidden_default": "continuity_requires_original_provider_database_forever"
+    },
+    {
+      "id": "A0-T13-PARTIAL-STATE-LOSS",
+      "operation": "partial_state_loss",
+      "primary_risk": "false_full_continuity",
+      "required_behavior": ["dimension_specific_downgrade", "authority_suspension_if_uncertain", "obligation_reconciliation_if_unknown"],
+      "forbidden_default": "same_key_or_same_id_implies_full_operational_continuity"
+    }
+  ]
+}
