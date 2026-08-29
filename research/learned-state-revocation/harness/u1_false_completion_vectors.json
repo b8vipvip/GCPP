@@ -1,0 +1,18 @@
+{
+  "status":"research-hypothesis",
+  "date":"2026-08-29",
+  "vectors":[
+    {"id":"U1-T1-RAG-AS-FULL","source":"retrieval_exclusion","target":"system_wide_forgetting","expected_entails":false},
+    {"id":"U1-T2-SUPPRESSION-AS-UNLEARNING","source":"behavioral_suppression","target":"parametric_influence_removal","expected_entails":false},
+    {"id":"U1-T3-PROCESS-AS-OUTCOME","source":"process_executed","target":"outcome_verified","expected_entails":false},
+    {"id":"U1-T4-MODEL-AS-DERIVATIVES","source":"model_state_remediated","target":"all_derivatives_remediated","expected_entails":false},
+    {"id":"U1-T5-APPROX-AS-RETRAIN","source":"benchmark_profile_forgetting","target":"retraining_equivalence","expected_entails":false},
+    {"id":"U1-T6-ERASURE-AS-REINGESTION","source":"source_erasure","target":"future_reingestion_prevented","expected_entails":false},
+    {"id":"U1-T7-PRETRANSFORM-AS-POSTTRANSFORM","source":"pre_transform_verified","target":"post_transform_verified","expected_entails":false},
+    {"id":"U1-T8-KNOWN-AS-UNIVERSAL","source":"known_scope_complete","target":"universal_complete","expected_entails":false},
+    {"id":"U1-T9-EXCEPTION-OMITTED","source":"partial_with_exception","target":"fully_erased_no_exception","expected_entails":false},
+    {"id":"U1-T10-INTERNAL-AS-WORLD","source":"internal_cleanup_complete","target":"external_disclosure_reversed","expected_entails":false},
+    {"id":"U1-T11-EXACT-COPY","source":"exact_copy_detected","target":"erasure_applicable","expected_entails":true},
+    {"id":"U1-T12-CORRECTION-AS-DELETION","source":"correction_obligation","target":"deletion_obligation","expected_entails":false}
+  ]
+}
