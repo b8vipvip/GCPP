@@ -1,140 +1,185 @@
 # GCPP 与 C2PA 对齐规范 0.2 / GCPP-C2PA Alignment 0.2
 
-> 状态 / Status: **Working Draft**  
+> 状态 / Status: **Working Draft — Adapter Boundary**  
 > 默认语言 / Default language: **简体中文（zh-CN）**
 
 # 简体中文
 
 ## 1. 目的
 
-本文件定义 GCPP 与 C2PA 的边界与映射。目标不是复制 C2PA，而是让 GCPP 的生成式内容扩展尽可能直接落在 C2PA 已有的 Content Credentials 机制上。
+本文件定义 GCPP 与 C2PA 的互操作边界。
 
-## 2. 核心原则
+重要说明：
 
-GCPP 实现 **SHOULD** 优先复用现有 C2PA 能力，而不是创建语义重复但不兼容的新对象。
+> **C2PA 是当前成熟且重要的实现/承载标准，但 C2PA 的功能边界不再决定 GCPP 的研究议程。**
 
-GCPP Core 仍保持抽象语义独立；具体 Internet Profile **MAY** 要求某个 C2PA 2.x 版本作为承载/签名层。
+GCPP 后续采用第一性原理方法研究信息来源关系、连续性和 Evidence 语义；当 C2PA 已经能够表达某项事实时，GCPP 直接映射和复用，而不是创建竞争格式。
 
-## 3. 能力映射
+详见：
 
-| GCPP 概念 | C2PA 对应能力 | GCPP 是否重复定义 |
+- `../research/FUNDAMENTAL-PROTOCOL-RESEARCH.md`
+- `GCPP-ARCHITECTURAL-PRINCIPLES.md`
+
+## 2. 互操作原则
+
+对于现实部署，GCPP 实现 **SHOULD** 优先复用 C2PA 已有能力，而不是创建语义重复但不兼容的新对象。
+
+但这是一条 implementation / adapter 原则，不是：
+
+```text
+C2PA missing feature
+        ↓
+GCPP research target
+```
+
+GCPP 正确的研究路径是：
+
+```text
+real problem
+-> stable semantics
+-> evidence requirements
+-> map to C2PA where appropriate
+```
+
+具体 Internet Profile **MAY** 要求某个 C2PA 2.x 版本作为承载/签名层；GCPP Core 仍保持实现和版本独立。
+
+## 3. 当前能力映射
+
+| 技术事实 / GCPP 研究概念 | C2PA 可承载能力 | GCPP 处理原则 |
 |---|---|---|
-| Actor/Signer claim | Claim Generator / Claim Signature / identity mechanisms | 否 |
-| Signed provenance object | C2PA Manifest / Claim | 否 |
-| Exact content binding | Hard Binding | 否 |
-| Durable approximate/recovery binding | Soft Binding | 否 |
-| Watermark locator | Invisible-watermark soft binding | 只定义生成式 Profile |
-| Manifest recovery | Manifest Repository / Soft Binding Resolution API | 否 |
-| Transformation history | Actions / Ingredients | 否 |
-| Derived asset lineage | Ingredients / relationships | 否 |
-| Generation event identity | 可作为 GCPP assertion/identifier 映射到 C2PA | 是，定义生成式语义 |
-| GID/RID separation | RID 映射到 soft-binding identifier；GID 作为权威 generation-event ID | 是 |
-| Text partial attribution | C2PA hard-binding portions + GCPP coverage semantics | 是，补充统一语义 |
-| Model assurance levels | C2PA AI/ML assertions/attestations + GCPP assurance taxonomy | 是 |
-| Training/distillation lineage | C2PA ingredients/model credentials 可承载，GCPP 定义生成式训练血缘语义 | 是 |
+| Actor/Signer claim | Claim Generator / Claim Signature / identity mechanisms | 复用，不造第二套身份签名 |
+| Signed provenance object | C2PA Manifest / Claim | 复用 |
+| Exact content binding | Hard Binding | 复用 |
+| Durable approximate/recovery binding | Soft Binding | 复用算法框架；GCPP 可研究新的恢复问题 |
+| Watermark locator | Invisible-watermark soft binding | 作为 Evidence/Profile，不等同认证 |
+| Manifest recovery | Manifest Repository / Soft Binding Resolution API | 复用 |
+| Transformation history | Actions / Ingredients | 优先复用；GCPP 研究跨实现 relation semantics |
+| Derived asset lineage | Ingredients / relationships | 优先复用 |
+| Generation execution relation | 可由 assertion/relationship 承载 | 是否属于 Core 需真实问题验证 |
+| RecoveryLocator | 可映射 soft-binding identifier | 作为 discovery 研究，不重新定义 Manifest |
+| Partial authenticated coverage | portions / hard binding + extension semantics | 研究验证语义，不重造区域容器 |
+| Model assurance evidence | AI/ML assertions/attestations | GCPP 研究 Evidence Vector 与边界 |
+| Model training/distillation evidence | model credentials / ingredients / assertions 可承载部分事实 | 聚焦跨标准的 distillation/influence evidence semantics |
+| Provenance Continuity | C2PA 可提供部分 exact/soft/history Evidence | GCPP 研究更一般的跨变换连续性语义 |
 
 ## 4. Durable Text 的定位
 
-C2PA 已支持非结构化文本、soft binding、invisible watermark、fingerprint 和 Manifest Repository。GCPP-TEXT 不再声称“C2PA 不支持文本”。
+C2PA 已支持非结构化文本、soft binding、invisible watermark、fingerprint 和 Manifest Repository。GCPP-TEXT 不声称“C2PA 不支持文本”。
 
-GCPP-TEXT 的差异目标是：
+GCPP 研究的问题是：
 
-- 不要求把完整 Manifest 永久藏入文本；
-- 用短 `RecoveryLocator` 承载最小发现信息；
-- 为 RID 预留 ECC、同步和冗余空间；
-- 基线不得额外调用大模型或做大量句级候选重排；
-- locator 被恢复后仍必须通过 C2PA/GCPP signed record 与内容绑定才能归属。
+> 当完整 Manifest、metadata、sidecar 或特定 carrier 丢失后，信息在传播与编辑中是否仍有低成本可恢复的来源发现信号，以及这种信号能证明到什么程度？
 
-推荐流程：
+推荐流程可以是：
 
 ```text
 visible text
    ↓
-low-overhead robust locator
+recovery evidence / locator
    ↓
-RID candidate(s)
+candidate provenance record
    ↓
-C2PA Manifest Repository / compatible resolver
+C2PA Manifest Repository or another resolver
    ↓
-C2PA Manifest + GCPP generative assertions
+signed record + binding evidence
    ↓
-Claim Signature + Hard/Soft Binding verification
-   ↓
-GCPP Verification Vector
+GCPP relation / continuity interpretation
 ```
 
-## 5. 信任模型
+固定边界：locator recovery 是 discovery，不是 attribution。
 
-C2PA 当前使用 C2PA Trust List / X.509 trust anchors 作为其正式信任机制之一。GCPP 不应否定这一成熟生态。
+## 5. Relation / Continuity 与 C2PA
 
-同时，GCPP Core 继续区分：
+C2PA 的 Actions、Ingredients、Hard/Soft Binding 可以为大量 provenance relation 和 integrity 状态提供强 Evidence。
+
+GCPP 不应复制这些数据结构。
+
+GCPP 新研究重点是：
+
+- 多来源关系如何跨不同 carrier 统一解释；
+- transformation 后哪些关系仍成立；
+- exact、segment、transform、semantic、historical 等不同连续性是否需要不同语义；
+- partial / mixed / unknown / conflicting evidence 如何报告；
+- 一个 Evidence 的证明边界如何被机器一致解释。
+
+如果这些问题最终可以完全通过 C2PA 自身的标准语义解决，则 GCPP 应删除对应重复 Core 候选，而不是维持项目独占对象。
+
+## 6. Model / Training 信息
+
+C2PA 已可承载模型、数据集、Ingredient、Assertion 和相关 provenance 信息。其他供应链标准也可以表达 AI/ML BOM 和数据依赖。
+
+因此 GCPP 不建立第二套通用 Model BOM。
+
+模型研究聚焦：
+
+```text
+OUTPUT_PROVENANCE != MODEL_LINEAGE
+```
+
+以及 teacher distillation、synthetic data、reasoning traces、training-run evidence、authorization evidence、probabilistic indication、selective disclosure 等生成式 AI 特有的证据解释问题。
+
+## 7. Trust 与身份
+
+GCPP 承认 C2PA Trust List / X.509 等成熟机制的现实价值。
+
+Core 仍区分：
 
 - cryptographic signature validity；
 - real-world actor identity assurance；
 - local trust policy。
 
-未来如果存在 DID、域名密钥、企业 PKI 或其他身份方法，应该通过 Adapter/Profile 与 C2PA/GCPP 结合，而不是把某一种身份方式写死为 GCPP Core。
+未来 DID、domain key、enterprise PKI 或其他身份方法通过 Adapter/Profile 接入，而不是写死到 Core。
 
-## 6. 不重复造轮子的规则
+## 8. 不重复造轮子的规则
 
-如果某项能力已经可以通过 C2PA 的标准对象表达，新的 GCPP 文档 **SHOULD NOT** 再定义另一套并行格式，除非：
+如果 C2PA 已经可以标准表达一项技术事实，新的 GCPP 文档 **SHOULD NOT** 再定义并行通用格式，除非：
 
-1. C2PA 无法表达所需语义；或
-2. 已有表达缺少生成式内容所需的互操作语义；或
-3. GCPP 只是定义一个可映射到 C2PA 的 profile/assertion，而非新的通用容器。
+1. GCPP 研究的是跨 carrier 仍然存在的独立语义；或
+2. 现有表示无法表达真实问题中的必要状态；或
+3. 文档只是 Adapter/Profile mapping，而不是新的通用容器。
 
-## 7. GCPP 仍然独立存在的理由
+特别地：
 
-GCPP 的价值从“通用内容凭证容器”转为生成式 AI 的专门语义与恢复机制：
+> “C2PA 当前没有某个字段”本身不是创建 GCPP Core primitive 的充分理由。
 
-- 单次 Generation 身份；
-- GID/RID 分离；
-- 低开销纯文本 durable locator；
-- partial authenticated coverage；
-- model assurance taxonomy；
-- model training / distillation lineage；
-- 生成式内容特有的 verification semantics。
+## 9. 互操作目标
 
-## 8. 互操作目标
-
-未来 GCPP Internet Profile 应能够实现：
+未来 GCPP-aware verifier 应能够接受 C2PA 作为 Evidence 来源之一：
 
 ```text
-GCPP generative assertion
-      ↕
-C2PA Manifest / Claim
-      ↕
-C2PA hard/soft binding
-      ↕
-existing C2PA validators
+C2PA Manifest / Claim / Binding / Actions
+                ↓
+        evidence extraction
+                ↓
+GCPP relation / continuity semantics
+                ↓
+        Verification Vector
 ```
 
-一个不理解 GCPP 扩展但理解 C2PA 的消费者，仍应能够验证基础 C2PA Claim；一个理解 GCPP 的消费者则可以进一步解析 Generation、Model Assurance、RID、Coverage 和 Model Lineage。
+一个不理解 GCPP 的标准 C2PA consumer 仍可验证基础 Content Credential；GCPP-aware consumer 则在不改变 C2PA 基础语义的情况下解释更一般的来源关系和连续性。
+
+## 10. 长期原则
+
+GCPP 与 C2PA 的理想关系不是竞争，也不是永久从属。
+
+```text
+GCPP Core = stable problem semantics
+C2PA      = important current evidence/carriage ecosystem
+Adapter   = interoperability boundary
+```
+
+如果未来出现更好的承载标准，GCPP Core 应能够不改变长期语义地迁移。
 
 ---
 
 # English
 
-## 1. Purpose
+This document defines the interoperability boundary between GCPP and C2PA.
 
-This document defines the boundary and mapping between GCPP and C2PA. GCPP should not duplicate C2PA; generative-specific extensions should be carried by existing Content Credentials mechanisms wherever practical.
+C2PA is an important mature credential and evidence ecosystem, but its current feature boundary no longer defines the GCPP research agenda. GCPP follows a first-principles path from real problems to stable semantics and evidence requirements, then maps those semantics to C2PA where appropriate.
 
-## 2. Core principle
+GCPP should reuse C2PA manifests, signatures, hard/soft bindings, actions, ingredients, repositories, model credentials, and related mechanisms rather than duplicate them.
 
-A GCPP implementation **SHOULD** reuse C2PA capabilities rather than create semantically redundant incompatible objects. GCPP Core remains abstract, while an Internet Profile **MAY** require a C2PA 2.x version as the contemporary carriage/signature layer.
+The new research focus is broader: evidence-backed relations, provenance continuity under transformation, partial/mixed/unknown/conflicting states, and explicit evidence capability boundaries. C2PA can provide strong evidence for many of those facts without becoming an eternal Core dependency.
 
-## 3. Durable Text
-
-C2PA already supports unstructured text, soft bindings, invisible watermarks, fingerprints, and manifest repositories. GCPP-TEXT therefore focuses on a different target: a compact `RecoveryLocator`, low-overhead embedding, ECC/synchronization headroom, graceful low-entropy abstention, and strict separation between locator recovery and attribution.
-
-## 4. Trust
-
-GCPP acknowledges the mature C2PA X.509/Trust List ecosystem while preserving a conceptual distinction between signature validity, real-world actor identity assurance, and local trust policy. Alternative identity systems belong in adapters/profiles, not permanent Core semantics.
-
-## 5. Non-duplication rule
-
-If C2PA can already express a capability, GCPP **SHOULD NOT** create a parallel general-purpose format unless C2PA cannot express the required semantics or GCPP is defining a mapped generative profile/assertion.
-
-## 6. GCPP's remaining scope
-
-GCPP focuses on single-generation identity, GID/RID separation, durable text locator recovery, partial authenticated coverage, model-assurance taxonomy, model training/distillation lineage, and generative-specific verification semantics.
+A missing C2PA field alone is not sufficient justification for a GCPP Core primitive.
