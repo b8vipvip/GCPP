@@ -1,0 +1,78 @@
+{
+  "status": "research-hypothesis",
+  "version": "a0-r2.1",
+  "date": "2026-08-29",
+  "purpose": "Adversarial vectors for testing whether conservative Agent succession safety can be expressed using generic relationship authority acknowledgement and fencing semantics.",
+  "vectors": [
+    {
+      "id": "R2-V1-FORK-NO-IMPLICIT-AUTHORITY",
+      "operation": "transfer",
+      "relationship": {"rid": "budget", "kind": "authority", "holder": "A", "authority": "Issuer", "epoch": 5, "exclusive": true},
+      "successors": ["A1", "A2"],
+      "acknowledger": null,
+      "assigned": [],
+      "expected": "UNRESOLVED_NO_AUTHORITY_ACK"
+    },
+    {
+      "id": "R2-V2-FORK-DUPLICATE-EXCLUSIVE-GRANT",
+      "operation": "transfer",
+      "relationship": {"rid": "budget", "kind": "authority", "holder": "A", "authority": "Issuer", "epoch": 5, "exclusive": true},
+      "successors": ["A1", "A2"],
+      "acknowledger": "Issuer",
+      "assigned": ["A1", "A2"],
+      "expected": "REJECT_AUTHORITY_MULTIPLICATION"
+    },
+    {
+      "id": "R2-V3-ROLLBACK-FENCING",
+      "operation": "fenced_action",
+      "current_epoch": 9,
+      "presented_epoch": 7,
+      "expected": "REJECT_STALE_EPOCH"
+    },
+    {
+      "id": "R2-V4-MERGE-NO-PRIVILEGE-UNION",
+      "operation": "transfer",
+      "relationship": {"rid": "grantX", "kind": "authority", "holder": "A", "authority": "IssuerX", "epoch": 3, "exclusive": false},
+      "successors": ["C"],
+      "acknowledger": null,
+      "assigned": [],
+      "expected": "UNRESOLVED_NO_AUTHORITY_ACK"
+    },
+    {
+      "id": "R2-V5-OBLIGATION-NO-SILENT-DROP",
+      "operation": "transfer",
+      "relationship": {"rid": "contract1", "kind": "obligation", "holder": "A", "authority": "Counterparty", "epoch": 1, "exclusive": false},
+      "successors": ["A1"],
+      "acknowledger": null,
+      "assigned": [],
+      "expected": "UNRESOLVED_NO_AUTHORITY_ACK"
+    },
+    {
+      "id": "R2-V6-OBLIGATION-ACKNOWLEDGED-SUCCESSION",
+      "operation": "transfer",
+      "relationship": {"rid": "contract1", "kind": "obligation", "holder": "A", "authority": "Counterparty", "epoch": 1, "exclusive": false},
+      "successors": ["A1"],
+      "acknowledger": "Counterparty",
+      "assigned": ["A1"],
+      "expected": "TRANSFERRED"
+    },
+    {
+      "id": "R2-V7-REPUTATION-NONTRANSFERABLE",
+      "operation": "transfer",
+      "relationship": {"rid": "rep1", "kind": "reputation", "holder": "A", "authority": "Rater", "epoch": 2, "exclusive": false, "transferable": false},
+      "successors": ["A1"],
+      "acknowledger": "Rater",
+      "assigned": ["A1"],
+      "expected": "REISSUE_REQUIRED"
+    },
+    {
+      "id": "R2-V8-PROVIDER-SCOPED-GRANT-AFTER-SHUTDOWN",
+      "operation": "transfer",
+      "relationship": {"rid": "providerGrant", "kind": "authority", "holder": "A", "authority": "ProviderX", "epoch": 4, "exclusive": false, "provider_scoped": true},
+      "successors": ["A1"],
+      "acknowledger": null,
+      "assigned": [],
+      "expected": "UNRESOLVED_NO_AUTHORITY_ACK"
+    }
+  ]
+}
