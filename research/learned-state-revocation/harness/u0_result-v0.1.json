@@ -1,0 +1,26 @@
+{
+  "status": "research-prototype",
+  "date": "2026-08-29",
+  "model": "policy decision + state class + known lineage + remedy profile + scoped evidence + conservative unknown/exception",
+  "passed": 16,
+  "total": 16,
+  "vectors": [
+    {"id":"U0-T1","actual":"RETRIEVAL_REMEDY_REQUIRED","pass":true},
+    {"id":"U0-T2","actual":"MODEL_STATE_NOT_PROVEN_FORGOTTEN","pass":true},
+    {"id":"U0-T3","actual":"DERIVATIVE_REMEDIATION_INCOMPLETE","pass":true},
+    {"id":"U0-T4","actual":"POLICY_PROFILE_DECISION_REQUIRED","pass":true},
+    {"id":"U0-T5","actual":"NO_AUTOMATIC_REMEDY_FROM_LINEAGE_ALONE","pass":true},
+    {"id":"U0-T6","actual":"IRREVERSIBLE_EXTERNAL_DISCLOSURE","pass":true},
+    {"id":"U0-T7","actual":"DEFERRED_ERASURE_WITH_CONTROLLED_RETENTION","pass":true},
+    {"id":"U0-T8","actual":"GLOBAL_COMPLETION_UNRESOLVED","pass":true},
+    {"id":"U0-T9","actual":"PROCESS_EXECUTED_NOT_OUTCOME_CERTIFIED","pass":true},
+    {"id":"U0-T10","actual":"VERIFIED_UNDER_TEST_PROFILE_ONLY","pass":true},
+    {"id":"U0-T11","actual":"PARTIAL_REMEDIATION_WITH_DECLARED_EXCEPTION","pass":true},
+    {"id":"U0-T12","actual":"FUTURE_INGESTION_BLOCK_REQUIRED","pass":true},
+    {"id":"U0-T13","actual":"REPLICA_RECONCILIATION_REQUIRED","pass":true},
+    {"id":"U0-T14","actual":"KNOWN_SCOPE_COMPLETE_UNIVERSAL_UNKNOWN","pass":true},
+    {"id":"U0-T15","actual":"NO_AUTOMATIC_REMEDY_FROM_DERIVATION","pass":true},
+    {"id":"U0-T16","actual":"ERASURE_REMEDY_REQUIRED","pass":true}
+  ],
+  "interpretation": "The first U0 vectors can be safely classified without a new wire protocol. The unresolved research question is whether cross-vendor interoperability requires a stable remedy-contract semantic layer bridging usage-control revocation and state-specific AI unlearning/remediation evidence, or whether existing ODRL/DPV/Gaia-X/PROV plus extensible profiles are sufficient."
+}
