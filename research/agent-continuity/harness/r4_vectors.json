@@ -1,0 +1,19 @@
+{
+  "status": "research-prototype",
+  "date": "2026-08-29",
+  "purpose": "A0-R4 ultimate Byzantine/open-world falsification vectors. Not a normative protocol test suite.",
+  "vectors": [
+    {"id":"R4-T1-VISIBLE-EQUIVOCATION","type":"equivocation_visible","exclusive":true,"successors":["B","C"],"all_signatures_valid":true,"expected":"CONFLICT_SIGNED_EQUIVOCATION"},
+    {"id":"R4-T2-ISOLATED-EQUIVOCATION","type":"equivocation_isolated","expected":"LOCALLY_VALID_GLOBALLY_UNKNOWN"},
+    {"id":"R4-T3-UNKNOWN-AUTHORITY-SET","type":"unknown_authority_set","closed_world_authority_set":false,"expected":"INCOMPLETE_UNKNOWN_AUTHORITY_SET"},
+    {"id":"R4-T4-DYNAMIC-AUTHORITY-EPOCH","type":"dynamic_authority_epoch","decision_epoch":7,"current_epoch":8,"expected":"REJECT_STALE_POLICY_EPOCH"},
+    {"id":"R4-T5-NO-SHARED-CLOCK","type":"no_shared_clock","has_monotonic_version":true,"expected":"ORDER_BY_VERSION_NOT_WALLCLOCK"},
+    {"id":"R4-T6-NETWORK-PARTITION","type":"network_partition","required_acks":3,"acks_seen":2,"expected":"PENDING_PRESERVE_SAFETY"},
+    {"id":"R4-T7-MALICIOUS-COORDINATOR","type":"malicious_coordinator","participant_signatures_required":true,"has_required_participant_signatures":false,"expected":"NO_FALSE_COMMIT"},
+    {"id":"R4-T8-TRANSPARENCY-SPLIT-VIEW","type":"split_view_log","inconsistent_signed_tree_heads":true,"expected":"SPLIT_VIEW_REQUIRES_GOSSIP_OR_WITNESS"},
+    {"id":"R4-T9-DIFFERENT-TRUST-POLICIES","type":"different_trust_policies","expected":"POLICY_DIVERGENCE_NOT_PROTOCOL_CONFLICT"},
+    {"id":"R4-T10-LATE-DISCOVERED-RELATIONSHIP","type":"late_discovered_relationship","expected":"PRIOR_COMPLETION_WAS_SCOPE_LIMITED"},
+    {"id":"R4-T11-BFT-QUORUM","type":"bft_quorum","n":4,"f":1,"matching_signatures":3,"expected":"QUORUM_ACCEPT"},
+    {"id":"R4-T12-INDISPENSABLE-AUTHORITY-GONE","type":"indispensable_authority_gone","expected":"UNRESOLVED_NO_AUTHORITY"}
+  ]
+}
