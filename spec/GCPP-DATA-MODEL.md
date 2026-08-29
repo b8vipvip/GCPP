@@ -1,4 +1,226 @@
-# GCPP Data Model 0.1
+# GCPP 数据模型 0.1 / GCPP Data Model 0.1
+
+> **默认语言：简体中文（zh-CN）**。中文完整版本在前，英文完整镜像在后。协议结构名、字段名和 BCP 14 关键词保持英文原样。
+>
+> **Default language: Simplified Chinese (zh-CN).** The complete Chinese version appears first, followed by the complete English mirror. Protocol structure names, field names, and BCP 14 keywords remain in English.
+
+## 简体中文
+
+状态：**Working Draft（工作草案）**
+
+本文件定义 GCPP Core 使用的抽象数据模型，并有意不规定 JSON、CBOR、protobuf、ASN.1、区块链存储、HTTP 传输或任何其他物理表示。
+
+### 1. 基础设计规则
+
+所有协议对象 MUST 显式版本化，或通过版本化 Profile 解释。
+
+用于 Event 和 Generation 的 Identifier SHOULD 是 opaque 且高熵的。它们 MUST NOT 编码用户账号、IP 地址、设备标识、地理位置或 Raw Prompt。
+
+Algorithm Identifier、Identity Method、Evidence Scheme、Normalization Profile、Event Type 和 Carrier Type 使用由 Registry 管理的符号值或数值。
+
+### 2. ActorIdentifier
+
+```text
+ActorIdentifier {
+  method: RegistryID
+  identifier: BytesOrString
+}
+```
+
+`method` 定义如何解释 `identifier`，以及如何解析 Verification Material。Core 不要求 Online Resolution。
+
+### 3. Event
+
+```text
+Event {
+  id: OpaqueID
+  type: RegistryID
+  time?: TimeClaim
+}
+```
+
+在得到提供更强时间保证的 Evidence Scheme 支持之前，`time` 仅是 Claim。
+
+Generation Event SHOULD 使用 Generation-specific Opaque Identifier。其他 Transformation Event MAY 使用等价 Opaque Event Identifier。
+
+### 4. Subject
+
+```text
+Subject {
+  media_type: MediaType
+  bindings: [ContentBinding, ...]
+}
+```
+
+若一个经过认证的 Provenance Claim 要绑定到具体内容，Subject MUST 至少包含一个 Content Binding。
+
+### 5. ContentBinding
+
+```text
+ContentBinding {
+  binding_type: RegistryID
+  algorithm: RegistryID
+  normalization_profile: RegistryID
+  value: Bytes
+  parameters?: Map
+}
+```
+
+`binding_type` 示例包括 Exact Digest、Normalized-Text Digest、Segment Commitment Set、Content-Defined Chunk Tree，或未来 Robust Integrity Construction。
+
+同一 Subject MAY 对不同表示同时携带多个 Binding。
+
+### 6. ModelClaim
+
+```text
+ModelClaim {
+  public_model_id: String
+  model_family?: String
+  model_commitment?: Commitment
+  extensions?: [Extension, ...]
+}
+```
+
+`public_model_id` 是 Provider 的公开声明。`model_commitment` 可以在不泄露信息的情况下，对 Internal Model Build 或 Routing Information 作 Commitment。
+
+仅存在 `ModelClaim` MUST NOT 被解释为 Execution Proof。
+
+### 7. ParentReference
+
+```text
+ParentReference {
+  event_id?: OpaqueID
+  record_commitment?: Commitment
+  relation_type: RegistryID
+  subject_selector?: Selector
+}
+```
+
+Record MAY 有零个或多个 Parent。实现 MUST 支持 Multiple Parent，以表示 Composition 和 Multi-source Transformation。
+
+### 8. CarrierDescriptor
+
+```text
+CarrierDescriptor {
+  carrier_type: RegistryID
+  scheme: RegistryID
+  locator?: BytesOrString
+  parameters?: Map
+}
+```
+
+Carrier 描述 Record 或 Recovery Locator 如何随内容一起存在或如何从内容恢复。Carrier Validity 不等于 Provenance Validity。
+
+### 9. RecoveryLocator
+
+```text
+RecoveryLocator {
+  scheme: RegistryID
+  value: Bytes
+  confidence?: Number
+  fragments?: [Bytes, ...]
+}
+```
+
+Recovery Locator 是 Discovery Material。它 MAY 解析到零个、一个或多个候选 Record。Verifier MUST 对候选 Record 进行独立认证。
+
+### 10. Evidence
+
+```text
+Evidence {
+  evidence_type: RegistryID
+  scheme: RegistryID
+  subject: EvidenceSubject
+  proof: BytesOrStructuredValue
+  parameters?: Map
+}
+```
+
+`subject` 必须精确标识 Proof 覆盖的对象。Evidence Type 的注册 Scheme Specification MUST 定义 Canonical Verification Rules。
+
+### 11. Extension
+
+```text
+Extension {
+  id: RegistryID
+  critical: Boolean
+  value: StructuredValue
+}
+```
+
+未知 non-critical Extension 在 Core Claim Evaluation 中被忽略，但必须被报告。未知 critical Extension 应使受影响 Claim 变为 `UNSUPPORTED`，而不是 `INVALID`，除非 Enclosing Profile 另有规定。
+
+### 12. ProvenanceRecord
+
+```text
+ProvenanceRecord {
+  version: Version
+  event: Event
+  actor: ActorIdentifier
+  subject: Subject
+  model_claim?: ModelClaim
+  parents: [ParentReference, ...]
+  carriers: [CarrierDescriptor, ...]
+  evidence: [Evidence, ...]
+  extensions: [Extension, ...]
+}
+```
+
+Record 是逻辑 Claim Set。Deployment Profile 定义 Canonical Serialization 与 Signature Envelope。
+
+### 13. SignedProvenance
+
+```text
+SignedProvenance {
+  record: ProvenanceRecord
+  signer: ActorIdentifier
+  signature_scheme: RegistryID
+  signature: Bytes
+  signature_parameters?: Map
+}
+```
+
+Signature Input MUST 是完整 Record 的 Profile-defined Canonical Encoding，加上任何要求的 Domain-Separation Context。
+
+Profile MUST 无歧义地定义 Algorithm Substitution 和 Key-Identifier Behavior。
+
+### 14. VerificationVector
+
+```text
+VerificationVector {
+  actor_authentication
+  record_signature
+  model_assurance
+  exact_integrity
+  partial_integrity
+  authenticated_coverage?
+  locator_state
+  lineage_state
+  historical_evidence
+  unsupported_critical_features[]
+  diagnostics[]
+}
+```
+
+每个字段独立评估。Presentation Label 从该结构派生；它们不是存放在 Record 中的权威“真相”。
+
+### 15. Canonicalization 边界
+
+Canonicalization 是安全关键部分。GCPP Core 有意将 Canonical Encoding 和 Media Normalization 留给 Profile，但每个 Profile MUST 精确定义，使两个符合规范的实现对相同 Logical Value 生成完全相同的 Signature Input 和 Content-Binding Input。
+
+### 16. Media Normalization
+
+Normalization Profile SHOULD 针对具体 Representation。文本 Profile 可以定义 Unicode Normalization、Line Ending、Whitespace Rule、Control Character Treatment 和 Markup Extraction。Binary Media 可以使用 Identity（Raw Bytes）或显式定义的 Canonical Representation。
+
+Normalization MUST NOT 静默删除语义相关信息，除非 Profile 明确规定这一权衡。
+
+### 17. 演进
+
+新字段通常应通过 Registered Extension 或 Profile Update 引入。Core Object 的语义只有在 Major Protocol Revision 时才应改变。
+
+---
+
+# English
 
 Status: **Working Draft**
 

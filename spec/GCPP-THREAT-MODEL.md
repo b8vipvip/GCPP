@@ -1,4 +1,184 @@
-# GCPP Threat Model 0.1
+# GCPP 威胁模型 0.1 / GCPP Threat Model 0.1
+
+> **默认语言：简体中文（zh-CN）**。中文完整版本在前，英文完整镜像在后。协议状态码及 BCP 14 关键词保持英文原样。
+>
+> **Default language: Simplified Chinese (zh-CN).** The complete Chinese version appears first, followed by the complete English mirror. Protocol state codes and BCP 14 keywords remain in English.
+
+## 简体中文
+
+状态：**Working Draft（工作草案）**
+
+本威胁模型定义 GCPP 计划检测、抵抗或准确表达的攻击，同时明确协议无法保证的内容。
+
+### 1. 安全目标
+
+GCPP 的目标是提高以下攻击的难度：
+
+- 伪造来源声明，使其看起来像由另一个 Actor 签名；
+- 把真实 Locator 或 Identifier 移植到无关内容，并让它错误认证整个 Subject；
+- 在存在独立 Historical Evidence 时，无痕重写已认证的 Provenance History；
+- 当 Robust Carrier 仍然存活时，仅通过普通格式转换就删除全部 Provenance；
+- 把 Partial Provenance 混淆成 Whole-Document Provenance；
+- 把 Provider 的 Model Declaration 混淆成独立证明的 Model Execution；
+- 把缺少 Provenance 错误解释为内容虚假或人类创作的证明。
+
+### 2. 非目标
+
+GCPP 不保证：
+
+- 内容事实正确；
+- 检测所有 AI 生成内容；
+- 在任意重写、翻译、重新生成、人工重新表达或破坏性编辑后仍保留 Provenance；
+- 阻止 Provider 故意对其内部模型执行作出虚假 Signed Claim；
+- 对自然人作法律归属；
+- 对已经公开的内容继续保密；
+- 执行平台政策或国家政策。
+
+### 3. 对手类别
+
+#### 3.1 Content Editor
+
+可以 Copy、Paste、Normalize、Reformat、Delete、Insert、Reorder、Paraphrase、Translate 或部分重写内容。
+
+#### 3.2 Provenance Stripper
+
+故意删除 Metadata、Sidecar、Hidden Unicode、Custom Clipboard MIME Type、Manifest 或已知 Watermark Carrier。
+
+#### 3.3 Locator Transplanter
+
+把有效 RID、Watermark Pattern、Manifest Reference 或 Provenance Fragment 复制到无关内容。
+
+#### 3.4 Signature Forger
+
+在不拥有签名 Key 的情况下，尝试创建看起来由 Provider/Actor 签名的 Record。
+
+#### 3.5 Watermark Learner
+
+反复查询 Provider 以推断 Watermark Behavior，然后尝试 Scrub 或 Spoof。
+
+#### 3.6 Malicious or Compromised Provider
+
+控制合法 Signing Key，可以签署误导性 Model Declaration 或省略 Transparency Publication。
+
+#### 3.7 Key Thief
+
+获得合法 Actor Signing Key，并在 Revocation 或 Compromise 被识别前签署欺诈 Record。
+
+#### 3.8 History Rewriter
+
+在发布后尝试删除或替换早期 Provenance Record/Checkpoint。
+
+#### 3.9 Resolver Attacker
+
+控制用于获取 Candidate Provenance Record 的 Server、Cache、CDN、P2P Node 或 Index。
+
+#### 3.10 Policy Manipulator
+
+利用有效协议输出作出协议不支持的推断，例如 `UNVERIFIED = FAKE` 或 `VERIFIED = TRUE`。
+
+### 4. Core 防御
+
+#### Signature Forgery
+
+防御：使用可替换、已注册的 Signature Scheme 进行 Cryptographic Record Signature，并定义明确的 Key Lifecycle Semantics。
+
+预期结果：Signature Invalid，不进行可信归属。
+
+#### Locator Transplant
+
+防御：Locator 仅用于 Discovery；归属还要求 Signed Record Verification 和 Content Binding/Coverage。
+
+预期结果：`LOCATOR_RECOVERED`，但 Integrity Failed/Insufficient，不认证来源。
+
+#### Partial-Copy Inflation
+
+防御：Partial Coverage 是一等状态，MUST NOT 外推至整个当前 Subject。
+
+预期结果：在支持的情况下输出带 Authenticated Coverage 的 `PARTIAL_PROVENANCE`。
+
+#### Metadata Stripping
+
+防御：多个独立 Carrier MAY 共存。Text Profile 可以在 Metadata、Sidecar、Clipboard Payload 之外加入 Robust In-Band Locator。
+
+预期结果：Provenance 可以从 Attached Proof 平滑降级到 Locator Recovery，而不是二元失败。
+
+#### Arbitrary Rewrite
+
+一般情况下无法保证防御。如果所有承载 Provenance 的信息都被删除，GCPP 报告 `UNVERIFIED`。
+
+#### Resolver Tampering
+
+防御：获取到的 Record 不因 Transport 而可信；Signature 和 Evidence 在本地验证。
+
+预期结果：恶意 Resolver 可以拒绝服务，但不能创建合法 Provider Signature。
+
+#### Historical Rewriting
+
+防御：可选的 Append-Only Evidence、Transparency Log、Witness System、Timestamp、Blockchain 或未来 Evidence System。
+
+预期结果：History Assurance 作为独立维度报告；缺少 History Evidence 不自动使有效 Signature 失效。
+
+#### Watermark Spoofing
+
+防御：Watermark 和 RID 不认证 Identity。强归属来自 Signed Record + Content Binding。
+
+#### Provider False Declaration
+
+防御：普通 Provider Signature 证明 Provider 作出了声明，而不是证明其内部执行声明一定真实。更强 Model Assurance 需要可选 Attestation 或 Verifiable-Execution Evidence。
+
+预期结果：`MODEL_DECLARED`，而不是 `MODEL_EXECUTION_PROVEN`。
+
+#### Key Compromise
+
+防御：Identity Profile 必须支持 Key Rotation、Revocation/Compromise Status 和 Historical Key Validation。Correction 应尽量使用 Append-Only 方式。
+
+### 5. 隐私威胁
+
+#### Cross-Generation User Tracking
+
+稳定的 per-user 或 per-device Provenance Identifier 可能变成 Tracking Primitive。因此 GCPP Identifier MUST NOT 强制嵌入 User Identity，并且 SHOULD 在不同 Generation Event 之间不可关联。
+
+#### Prompt Guessing
+
+公开低熵 Prompt 的 Deterministic Hash 可能通过 Dictionary Attack 泄露信息。因此 Public Prompt Binding 不是必需项；需要时应使用 Randomized Commitment。
+
+#### Permanent Public Personal Data
+
+Append-Only 或 Blockchain Evidence 可能让误公开的个人数据很难甚至无法删除。Profile SHOULD Anchor Commitment，而不是 Raw User Data 或 Raw Content。
+
+### 6. 可用性威胁
+
+不假设任何 Online Resolver、Provider Endpoint、Log 或 Chain 永久存在。因此 GCPP 支持 Self-Contained Proof Bundle、Sidecar、Cached Record、Independent Mirror 和 Multiple Evidence System。
+
+Availability Failure MUST 与 Cryptographic Invalidity 分开表达。
+
+### 7. Algorithm Agility 威胁
+
+Hash、Signature、Identity、Watermark 和 Evidence Algorithm 都可能过时。Registry 和 Profile MUST 支持 Deprecation 和 Migration，而不改变 Core Provenance Semantics。
+
+Historical Verification Software SHOULD 保留长期验证所需的 Algorithm Identifier 和 Verification Material。
+
+### 8. 内容类型限制
+
+极短文本、Deterministic Code、Formula、JSON、Fixed-Format Output 和 Low-Entropy Generation 可能没有足够自由度进行 Robust In-Band Watermark，而不损害正确性。
+
+Profile MUST 允许声明 Locator Capacity 很低或为零，并 fallback 到 Attached/Sidecar Proof。
+
+### 9. 防止语义过度推断
+
+协议的 Presentation Vocabulary 本身属于安全模型。即使密码学正确，把 `UNVERIFIED` 展示为 `FAKE`，或把 `VERIFIED` 展示为 `TRUE`，也会产生 Policy-Level Spoofing Vulnerability。
+
+Conformance Testing SHOULD 除密码学向量外，也覆盖 UI/API 语义误用测试。
+
+### 10. 残余风险
+
+GCPP 提高 Provenance Forgery 成本，并显式呈现 Evidence Quality。它不能让信息不可摧毁，不能仅从密码学证明现实真相，也不能强迫不参与协议的软件或本地开源模型输出 Provenance。
+
+目标结果是渐进式 Assurance：Exact、Derivative、Partial、Locator-Only 或 Unverified，而不是不可能实现的“通用永久追踪”。
+
+---
+
+# English
 
 Status: **Working Draft**
 
