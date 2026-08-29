@@ -1,0 +1,22 @@
+{
+  "status": "research-prototype",
+  "date": "2026-08-29",
+  "model": "ordinary dependency/calibration metadata + conservative classification",
+  "passed": 12,
+  "total": 12,
+  "interpretation": "All first E0 vectors can be conservatively classified without an AI-specific epistemic protocol primitive. This weakens the independent-protocol hypothesis. The unresolved question moves to observability, verifiability, privacy and comparability of dependency/calibration metadata across vendors.",
+  "vectors": [
+    {"id":"E0-T1-SAME-MODEL-CLONES","pass":true,"actual":"NO_CONFIDENCE_AMPLIFICATION"},
+    {"id":"E0-T2-DIFFERENT-MODELS-SAME-RAG","pass":true,"actual":"DEPENDENT_SUPPORT"},
+    {"id":"E0-T3-COPY-AFTER-COMMUNICATION","pass":true,"actual":"REDUNDANT_OR_DEPENDENT_SUPPORT"},
+    {"id":"E0-T4-DEBATE-NO-NEW-EVIDENCE","pass":true,"actual":"NO_AUTOMATIC_EVIDENCE_GAIN"},
+    {"id":"E0-T5-SAME-NUMBER-DIFFERENT-MEANING","pass":true,"actual":"INCOMPARABLE_MEASURES"},
+    {"id":"E0-T6-CALIBRATION-DOMAIN-TRANSFER","pass":true,"actual":"OUT_OF_CALIBRATION_DOMAIN"},
+    {"id":"E0-T7-DISTRIBUTION-SHIFT","pass":true,"actual":"DOWNGRADE_OR_RECALIBRATE"},
+    {"id":"E0-T8-HIDDEN-SHARED-BASE","pass":true,"actual":"DO_NOT_ASSUME_INDEPENDENCE"},
+    {"id":"E0-T9-ADVERSARIAL-CONFIDENCE","pass":true,"actual":"UNVERIFIED_SELF_REPORT"},
+    {"id":"E0-T10-SAME-MODEL-INDEPENDENT-SENSORS","pass":true,"actual":"MODEL_DEPENDENCE_DOES_NOT_ERASE_EVIDENCE_DIVERSITY"},
+    {"id":"E0-T11-SAME-EVIDENCE-DIFFERENT-METHODS","pass":true,"actual":"DEPENDENT_BUT_POSSIBLY_NONZERO_MARGINAL_SUPPORT"},
+    {"id":"E0-T12-LATE-DEPENDENCY-DISCOVERY","pass":true,"actual":"ALLOW_ASSESSMENT_DOWNGRADE"}
+  ]
+}
