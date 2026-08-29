@@ -1,0 +1,18 @@
+{
+  "status": "research-prototype",
+  "date": "2026-08-29",
+  "model": "relationship-authority + fencing",
+  "passed": 8,
+  "total": 8,
+  "vectors": [
+    {"id": "R2-V1-FORK-NO-IMPLICIT-AUTHORITY", "expected": "UNRESOLVED_NO_AUTHORITY_ACK", "actual": "UNRESOLVED_NO_AUTHORITY_ACK", "pass": true},
+    {"id": "R2-V2-FORK-DUPLICATE-EXCLUSIVE-GRANT", "expected": "REJECT_AUTHORITY_MULTIPLICATION", "actual": "REJECT_AUTHORITY_MULTIPLICATION", "pass": true},
+    {"id": "R2-V3-ROLLBACK-FENCING", "expected": "REJECT_STALE_EPOCH", "actual": "REJECT_STALE_EPOCH", "pass": true},
+    {"id": "R2-V4-MERGE-NO-PRIVILEGE-UNION", "expected": "UNRESOLVED_NO_AUTHORITY_ACK", "actual": "UNRESOLVED_NO_AUTHORITY_ACK", "pass": true},
+    {"id": "R2-V5-OBLIGATION-NO-SILENT-DROP", "expected": "UNRESOLVED_NO_AUTHORITY_ACK", "actual": "UNRESOLVED_NO_AUTHORITY_ACK", "pass": true},
+    {"id": "R2-V6-OBLIGATION-ACKNOWLEDGED-SUCCESSION", "expected": "TRANSFERRED", "actual": "TRANSFERRED", "pass": true},
+    {"id": "R2-V7-REPUTATION-NONTRANSFERABLE", "expected": "REISSUE_REQUIRED", "actual": "REISSUE_REQUIRED", "pass": true},
+    {"id": "R2-V8-PROVIDER-SCOPED-GRANT-AFTER-SHUTDOWN", "expected": "UNRESOLVED_NO_AUTHORITY_ACK", "actual": "UNRESOLVED_NO_AUTHORITY_ACK", "pass": true}
+  ],
+  "interpretation": "Passing vectors only demonstrates that conservative succession safety can be modeled with generic relationship-authority acknowledgement and fencing semantics. It does not establish a need for a new Agent Continuity protocol, and it does not prove cross-domain interoperability."
+}
