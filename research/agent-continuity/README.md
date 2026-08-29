@@ -1,188 +1,259 @@
 # Agent Continuity Research / AI 主体连续性研究
 
 > 当前分支 / Current branch: `research/a0-agent-continuity`  
-> 状态 / Status: **A0 Fundamental Research — active, unmerged**  
+> 状态 / Status: **A0 complete — independent protocol hypothesis killed; unmerged research branch**  
 > 日期 / Date: **2026-08-29**
 
 # 简体中文
 
-## 当前目标
+## 最终结论
 
-本目录开启一个与原 Content Provenance 方向分离的新研究主题：
+A0 已完成 R1 → R4 第一性原理与可执行反证。
 
-> **AI Agent Continuity & Succession / AI 主体连续性与继承**
+最终判定：
 
-研究对象是长期 Agent 跨模型、运行时、密钥、记忆、principal、provider 和本地状态变化时，哪些主体关系、权限、义务、信誉和外部历史能够安全连续。
+```text
+INDEPENDENT AGENT CONTINUITY / SUCCESSION WIRE PROTOCOL:
+NOT JUSTIFIED — STOP PROTOCOLIZATION
+```
 
-A0 当前不建立独立协议，不修改现有 GCPP normative Core，也不默认未来一定沿用 `GCPP` 名称。
+研究没有证明需要新的：
 
-## 当前文件
+- Agent Continuity Token；
+- global successor certificate；
+- Agent-specific consensus；
+- Agent-specific transparency ledger；
+- Agent-specific distributed transaction protocol；
+- Agent-specific credential container。
+
+A0 的主要问题最终可以分解为：
+
+```text
+relationship/domain authority semantics
++
+identity / authorization / credentials
++
+version / epoch / causal ordering
++
+transparency / audit / gossip
++
+generic transaction / workflow / BFT coordination where required
++
+conservative UNKNOWN / PENDING / UNRESOLVED
+```
+
+## A0 的研究轨迹
+
+### R1 — Extreme lifecycle stress
+
+研究：
+
+```text
+Model replacement
+Runtime migration
+Key rotation
+Memory migration
+Checkpoint rollback
+Agent fork
+Agent merge
+Principal transfer
+Authority revocation
+Outstanding obligations
+Reputation inheritance
+Provider shutdown
+Partial state loss
+```
+
+关键发现：
+
+```text
+STATE COPY != RELATIONSHIP COPY
+```
+
+### R2 — Absorption / Falsification
+
+发现大量问题可以被现有：
+
+```text
+OAuth/capability
+PKI/KMS
+event sourcing
+fencing
+workflow
+credential lifecycle
+```
+
+吸收。
+
+研究中心收敛为：
+
+```text
+Cross-Domain Agent Relationship Succession
+```
+
+关键边界：
+
+```text
+SUCCESSOR DECLARATION != EXTERNAL RELATIONSHIP TRANSFER
+```
+
+R2 harness：
+
+```text
+8 / 8 matched expected
+```
+
+### R3 — Distributed coordination falsification
+
+多 authority fork / merge / obligation / provider-exit 问题继续被分解为：
+
+```text
+Relationship Authority Semantics
++
+Generic Distributed Coordination
+```
+
+2PC / Saga / durable workflow / versioning 已覆盖协调形态。
+
+R3 harness：
+
+```text
+8 / 8 matched expected
+```
+
+关键原则：
+
+```text
+COORDINATION CANNOT CREATE AUTHORITY
+```
+
+### R4 — Byzantine / Open-World ultimate attack
+
+最终攻击：
+
+```text
+malicious authority
+signed equivocation
+isolated views
+unknown authority universe
+dynamic authority set
+no shared clock
+network partition
+malicious coordinator
+transparency split view
+trust-policy divergence
+late-discovered relationships
+Byzantine committee
+indispensable authority loss
+```
+
+R4 harness：
+
+```text
+12 / 12 matched expected
+```
+
+所有结果仍可由通用：
+
+```text
+signed evidence
+transparency
+epoch/version
+quorum/BFT
+trust policy
+scoped completion
+UNKNOWN/PENDING/UNRESOLVED
+```
+
+表达。
+
+因此没有留下不可约 Agent-specific protocol primitive。
+
+## 最终保留的安全原则
+
+```text
+STATE COPY != AUTHORITY / DUTY / REPUTATION COPY
+SUCCESSOR DECLARATION != EXTERNAL RELATIONSHIP TRANSFER
+COORDINATION CANNOT CREATE AUTHORITY
+LOCAL VALIDITY != GLOBAL NON-EQUIVOCATION
+KNOWN SET != COMPLETE UNIVERSE
+WALL_CLOCK != CAUSAL ORDER
+SAFETY MAY REQUIRE NON-COMPLETION
+```
+
+尤其：
+
+```text
+GLOBAL_SUCCESSION_COMPLETE = true
+```
+
+在 open world 中通常是不安全的表达。
+
+完成状态必须限定：
+
+```text
+relationship set
+authority set
+policy epoch
+evidence / receipts
+```
+
+## 文件索引
+
+### R1
 
 - `A0-00-RESEARCH-CHARTER.md`
-  - 第一性原理研究纲领；
-  - continuity multidimensional hypothesis；
-  - candidate invariants；
-  - kill criteria。
-
 - `A0-01-EXTREME-STRESS-TESTS.md`
-  - 13 个极端场景压力测试；
-  - model replacement / migration / rollback / fork / merge 等第一轮结论。
-
 - `A0-02-CONTINUITY-DIMENSIONS-AND-INVARIANTS.md`
-  - 候选连续性维度；
-  - authority non-multiplication；
-  - no revocation resurrection；
-  - obligation conservation；
-  - provider-independence test。
-
 - `A0-03-PRIOR-ART-AND-BOUNDARIES.md`
-  - IETF Agent Network Admission；
-  - Agent Identity / Delegation drafts；
-  - MCP Authorization；
-  - A2A；
-  - W3C Agent Memory Interoperability；
-  - PKI/capability/event-sourcing absorption challenge。
+- `A0-04-FIRST-ROUND-FINDINGS.md`
+
+### R2
+
+- `A0-05-R2-ABSORPTION-MATRIX.md`
+- `A0-06-RELATIONSHIP-SOVEREIGNTY.md`
+- `A0-07-DISTRIBUTED-SYSTEMS-FALSIFICATION.md`
+- `A0-08-R2-FINDINGS.md`
+
+### R3
+
+- `A0-09-R3-ABSORPTION-HYPOTHESIS.md`
+- `A0-10-DISTRIBUTED-COORDINATION-PRIOR-ART.md`
+- `A0-11-R3-STRESS-TESTS.md`
+- `A0-12-R3-FINDINGS.md`
+
+### R4
+
+- `A0-13-R4-ULTIMATE-ATTACK-CHARTER.md`
+- `A0-14-BYZANTINE-OPEN-WORLD-PRIOR-ART.md`
+- `A0-15-R4-ULTIMATE-STRESS-TESTS.md`
+- `A0-16-R4-FINAL-FINDINGS-AND-KILL-DECISION.md`
+
+### Harness
 
 - `a0-stress-vectors.json`
-  - 13 个机器可读研究向量；
-  - 用于后续 executable lifecycle-safety harness。
+- `a0-test-plan.md`
+- `harness/r2_*`
+- `harness/r3_*`
+- `harness/r4_*`
 
-## 第一轮最重要发现
+## 未来如何处理 A0
 
-### 1. `sameAgent=true` 很可能不是安全抽象
+A0 不应继续向独立协议发展。
 
-当前更像是多个相互独立维度：
-
-```text
-logical identity
-execution
-cryptographic control
-memory
-model/behavior
-principal
-authority
-obligation
-reputation
-temporal state
-```
-
-这些维度仍需要继续删除/合并。
-
-### 2. Agent Continuity 的核心可能不是“身份”，而是 succession
-
-现有 Agent identity / delegation 赛道已很拥挤。
-
-A0 当前真正值得继续验证的是：
+可保留为：
 
 ```text
-predecessor
-  ↓ lifecycle transition
-successor(s)
+Agent Lifecycle & Succession Threat Model
+Security Guidance
+Cross-standard interoperability profile
+Adversarial conformance corpus
 ```
 
-过程中：
-
-```text
-rights
-obligations
-historical responsibility
-revocation
-external effects
-```
-
-如何不会因为复制、回滚、分裂或合并而出错。
-
-### 3. 当前三个最强危险
-
-```text
-fork     -> authority multiplication
-rollback -> revoked/spent rights resurrection
-merge    -> privilege union
-```
-
-另两个高价值场景：
-
-```text
-provider shutdown -> succession without original provider
-partial state loss -> safe downgrade instead of false full continuity
-```
-
-## 下一步 A0
-
-优先继续：
-
-### A0-R2 — Absorption/Falsification
-
-主动尝试只用：
-
-```text
-OAuth/capabilities
-PKI/KMS
-Agent identity drafts
-W3C memory portability
-event sourcing
-workflow/saga semantics
-```
-
-解决全部 13 个场景。
-
-### A0-R3 — Fork/Merge/Rollback formalization
-
-特别研究：
-
-```text
-Authority Non-Multiplication
-Revocation Monotonicity
-External-Effect Monotonicity
-Obligation Conservation
-```
-
-是否可以形成跨授权系统的生命周期不变量。
-
-### A0-R4 — Executable vectors
-
-将 `a0-stress-vectors.json` 发展为可执行测试：
-
-```text
-transition input
-pre-state
-post-state
-explicit grants/revocations
-expected safe inheritance
-detected violation
-```
-
-### A0-R5 — Provider shutdown / succession
-
-模拟原供应商永久不可用时：
-
-```text
-can counterparties verify successor?
-can obligations survive?
-can old authority be safely terminated?
-can continuity avoid provider lock-in?
-```
-
-## 不允许的捷径
-
-A0 不应因为一个概念听起来新颖就立即创建：
-
-```text
-Agent Continuity Token
-Agent Continuity Blockchain
-Agent Continuity DID
-Agent Continuity Wallet
-Agent Continuity Manifest
-```
-
-只有第一性原理研究和 executable falsification 证明独立公共层确有必要后，才考虑协议化。
+只有未来出现无法由 domain authority semantics、existing credentials、transparency、distributed coordination、BFT/quorum 与 conservative unknown-state 正确表达的真实跨行业反例时，才重新开启协议研究。
 
 ---
 
 # English
 
-This directory starts A0 research on **Agent Continuity and Succession**. It is intentionally separate from the prior content-provenance direction and does not modify the current normative Core.
-
-The first round suggests that long-lived agent continuity is not safely represented by a single identity flag. Fork can multiply authority, rollback can resurrect revoked or spent rights, merge can accidentally union privilege, obligations can be orphaned, reputation can be cloned, and provider shutdown can make succession unverifiable.
-
-The next phase will actively attempt to solve all cases using existing identity, capability, memory, event-sourcing and workflow mechanisms. Only residual cross-system lifecycle semantics should remain candidates for a future public framework.
+A0 is complete. After four rounds of first-principles falsification, the evidence does not justify an independent Agent Continuity or Agent Succession wire protocol. The useful residue is a lifecycle/succession threat model, security guidance, interoperability profiles, and adversarial conformance vectors. The direction should only be reopened if a real cross-industry Agent lifecycle safety problem survives decomposition into domain authority semantics, existing credentials, transparency, generic distributed coordination/BFT, and conservative unknown states.
