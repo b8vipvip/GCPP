@@ -1,0 +1,22 @@
+{
+  "status": "research-prototype",
+  "date": "2026-08-29",
+  "model": "generic signed-evidence + epoch/version + quorum + open-world conservative semantics",
+  "passed": 12,
+  "total": 12,
+  "vectors": [
+    {"id":"R4-T1-VISIBLE-EQUIVOCATION","expected":"CONFLICT_SIGNED_EQUIVOCATION","actual":"CONFLICT_SIGNED_EQUIVOCATION","pass":true},
+    {"id":"R4-T2-ISOLATED-EQUIVOCATION","expected":"LOCALLY_VALID_GLOBALLY_UNKNOWN","actual":"LOCALLY_VALID_GLOBALLY_UNKNOWN","pass":true},
+    {"id":"R4-T3-UNKNOWN-AUTHORITY-SET","expected":"INCOMPLETE_UNKNOWN_AUTHORITY_SET","actual":"INCOMPLETE_UNKNOWN_AUTHORITY_SET","pass":true},
+    {"id":"R4-T4-DYNAMIC-AUTHORITY-EPOCH","expected":"REJECT_STALE_POLICY_EPOCH","actual":"REJECT_STALE_POLICY_EPOCH","pass":true},
+    {"id":"R4-T5-NO-SHARED-CLOCK","expected":"ORDER_BY_VERSION_NOT_WALLCLOCK","actual":"ORDER_BY_VERSION_NOT_WALLCLOCK","pass":true},
+    {"id":"R4-T6-NETWORK-PARTITION","expected":"PENDING_PRESERVE_SAFETY","actual":"PENDING_PRESERVE_SAFETY","pass":true},
+    {"id":"R4-T7-MALICIOUS-COORDINATOR","expected":"NO_FALSE_COMMIT","actual":"NO_FALSE_COMMIT","pass":true},
+    {"id":"R4-T8-TRANSPARENCY-SPLIT-VIEW","expected":"SPLIT_VIEW_REQUIRES_GOSSIP_OR_WITNESS","actual":"SPLIT_VIEW_REQUIRES_GOSSIP_OR_WITNESS","pass":true},
+    {"id":"R4-T9-DIFFERENT-TRUST-POLICIES","expected":"POLICY_DIVERGENCE_NOT_PROTOCOL_CONFLICT","actual":"POLICY_DIVERGENCE_NOT_PROTOCOL_CONFLICT","pass":true},
+    {"id":"R4-T10-LATE-DISCOVERED-RELATIONSHIP","expected":"PRIOR_COMPLETION_WAS_SCOPE_LIMITED","actual":"PRIOR_COMPLETION_WAS_SCOPE_LIMITED","pass":true},
+    {"id":"R4-T11-BFT-QUORUM","expected":"QUORUM_ACCEPT","actual":"QUORUM_ACCEPT","pass":true},
+    {"id":"R4-T12-INDISPENSABLE-AUTHORITY-GONE","expected":"UNRESOLVED_NO_AUTHORITY","actual":"UNRESOLVED_NO_AUTHORITY","pass":true}
+  ],
+  "interpretation": "All first R4 vectors match expected conservative outcomes using generic signed-evidence, epoch/version, quorum and open-world semantics. This materially weakens the case for an independent Agent Continuity/Succession wire protocol. The prototype does not implement cryptography, transparency gossip, BFT consensus, authority discovery or cross-implementation interoperability."
+}
