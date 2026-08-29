@@ -8,7 +8,7 @@
 
 ## 1. 当前一句话状态
 
-> **GCPP 正从 0.2 的“C2PA 兼容生成式来源扩展/Profile”进一步进入第一性原理架构研究阶段：不再围绕 C2PA/SPDX/CycloneDX 的短期功能空白做标准竞赛，而是研究信息关系、来源连续性、Evidence 边界和可长期存在的最小协议原语。**
+> **GCPP 已正式进入第一性原理架构研究阶段：不再围绕 C2PA/SPDX/CycloneDX 的短期功能空白做标准竞赛，而是研究信息关系、来源连续性、Evidence 边界和可长期存在的最小协议原语。**
 
 ## 2. 仓库状态
 
@@ -16,8 +16,10 @@
 - 默认分支：`main`
 - 0.2 架构重构 PR：**#5**，已合并；
 - 0.2 merge commit：`29195b94ec87a3603f8fb0c61db3cef7cc5c9200`；
-- 当前第一性原理研究分支：`research/fundamental-protocol-architecture`；
-- 本阶段目标：更新研究纲领、Core 架构纪律、Roadmap 和现有标准边界后合并回 `main`。
+- 第一性原理架构 PR：**#9**，已合并；
+- PR #9 merge commit：`85764600103293ec8a6ed1c899e1f2cc28b04670`；
+- 历史工作分支：`research/fundamental-protocol-architecture`；
+- 当前工作基线：最新 `main`。
 
 ## 3. 为什么再次调整方向
 
@@ -181,7 +183,7 @@ ABSENCE_OF_EVIDENCE != EVIDENCE_OF_ABSENCE
   - 引入 evidence-backed relation graph 和 Continuity 研究。
 
 - `spec/GCPP-C2PA-ALIGNMENT.md`
-  - 从 `C2PA-first research direction` 改成 `C2PA as important current adapter/evidence carrier`；
+  - C2PA 改为重要的当前 adapter/evidence carrier；
   - C2PA 功能边界不再决定 GCPP research agenda。
 
 - `ROADMAP.md`
@@ -292,15 +294,12 @@ unknown
 
 ## 12. 当前 Issues
 
-历史 Issues 仍需根据新架构重新解释：
-
 - **#2** — specification license / contributor IPR policy：继续有效，公共标准必要条件；
-- **#3** — C2PA-based Internet Profile：降级为实现/互操作 Profile，不再决定 Core 方向；
+- **#3** — 已调整为 Core 稳定后的 C2PA interoperability adapter；
 - **#4** — RecoveryLocator benchmark：继续作为实验研究；
 - **#6** — GB 45438 Adapter：继续作为监管 Adapter；
-- **#7** — Model Lineage：继续，但需从线性 assurance level 转向 Evidence Vector，并减少与通用 AI BOM 重复。
-
-建议后续新增独立 Fundamental Research Issues，而不是继续把所有研究塞进 #3/#7。
+- **#7** — 已调整为 evidence-backed distillation lineage research；
+- **#8** — `define provenance continuity from first principles`：当前第一性原理研究主 Issue。
 
 ## 13. 下一阶段执行顺序
 
@@ -334,7 +333,7 @@ Adapters / Profiles / Reference verifier
 
 # English
 
-GCPP has entered a first-principles architecture research phase beyond the 0.2 C2PA-compatible profile realignment.
+GCPP has entered a first-principles architecture research phase beyond the 0.2 C2PA-compatible profile realignment. PR #9 merged this direction into `main` at `85764600103293ec8a6ed1c899e1f2cc28b04670`.
 
 The project is no longer driven by temporary feature gaps in C2PA, SPDX, CycloneDX, or other standards. The research order is now:
 
