@@ -1,259 +1,126 @@
 # GCPP 路线图 / GCPP Roadmap
 
-> **默认语言：简体中文（zh-CN）**。中文完整版本在前，英文完整镜像在后。
->
-> **Default language: Simplified Chinese (zh-CN).** The complete Chinese version appears first, followed by the complete English mirror.
+> 默认语言：简体中文（zh-CN） / Default language: Simplified Chinese (zh-CN)
 
-## 简体中文
+# 简体中文
 
-本路线图描述的是**标准成熟度**，不是产品交付日期。
+本路线图从 0.2 起以“**C2PA 兼容的生成式内容扩展/Profile**”为主线，而不是重新建设通用 Content Credentials 容器。
 
-### Phase 0 — Core 概念架构冻结
+## Phase 0 — C2PA 对齐与范围收敛
 
 目标：
 
-- 稳定四个长期抽象：Identity、Provenance、Integrity、Evidence；
-- 稳定 `GenerationID` 与 `RecoveryLocator` 的分离；
-- 稳定 provenance DAG 语义；
-- 稳定 Verification Vector 与展示标签；
-- 冻结“watermark 是发现/恢复证据，而不是最终身份认证”的规则；
-- 冻结隐私和政策中立不变量。
+- 明确 C2PA 已有能力与 GCPP 不再重复定义的部分；
+- 固定 `OUTPUT_PROVENANCE != MODEL_LINEAGE`；
+- 固定 GID/RID、partial attribution、model assurance 等生成式专用语义；
+- 建立 C2PA mapping document。
 
-退出条件：不存在已知需求迫使 Core 依赖某个特定区块链、DID 方法、Hash、签名、水印、存储系统或 AI 架构。
+退出条件：GCPP 的每个新对象都能回答“为什么 C2PA 现有对象不够”。
 
-### Phase 1 — Canonical Internet Profile
+## Phase 1 — GCPP Internet Profile 0.2（C2PA-based）
 
-定义第一套可互操作的部署 Profile，采用具体但可替换的选择：
+定义第一套现实可互操作 Profile：
 
-- canonical serialization；
-- signature envelope；
-- baseline hash/commitment schemes；
-- key identifiers；
-- record size limits；
-- deterministic canonicalization；
-- error behavior；
-- self-contained 与 sidecar proof packaging。
+- 选定兼容的 C2PA 2.x baseline；
+- 定义 GCPP assertions/identifiers 如何进入 Manifest；
+- 定义 GenerationID / RecoveryLocator 表示；
+- 定义 Model Assurance / Model Lineage assertions；
+- 定义 canonical extension encoding；
+- 生成 byte-level test vectors。
 
-退出条件：独立实现的 sign/verify 代码对同一输入产生完全相同的签名输入和结果。
+退出条件：独立实现能用标准 C2PA validator 验证基础 Claim，并用 GCPP-aware verifier 得到相同扩展语义。
 
-### Phase 2 — Text Integrity Profile
+## Phase 2 — Text Integrity Profile
 
 定义：
 
 - `norm.text-plain-1`；
-- 精确 normalized-text binding；
-- 稳健 segment/chunk binding；
-- content-defined 或结构感知 segmentation；
-- authenticated coverage 计算；
-- normalization conformance vectors。
+- exact normalized-text binding；
+- segment/chunk binding；
+- authenticated coverage；
+- C2PA hard-binding mapping。
 
-退出条件：两个独立实现对常见编辑后的 exact/partial integrity 得出相同结果。
+## Phase 3 — Durable Text Locator Profile
 
-### Phase 3 — Text Recovery Profile
+研究并 benchmark：
 
-研究并标准化一种高效的 in-band RecoveryLocator，要求：
+- 低开销 token/logit locator；
+- RID capacity；
+- ECC / synchronization；
+- copy/paste 与编辑鲁棒性；
+- multilingual；
+- spoofing / transplant；
+- low-entropy abstention。
 
-- 不需要额外 LLM inference pass；
-- 不需要大量候选语义重排；
-- 对短文本/低熵输出支持明确 abstention；
-- 提供 ECC/同步机制；
-- 有可测量的 false-positive/false-negative 行为；
-- 跨语言和常见复制/编辑路径测试；
-- 将恢复行为仅视为 discovery。
+硬约束：不要求额外 LLM pass、大量候选句 rerank、逐 token 网络/账本/ZK。
 
-退出条件：候选方案通过公开的稳健性、质量、吞吐、spoofing 和 transplant 测试。
+目标是作为 C2PA Soft Binding 的候选生成式文本算法，而不是另一套 Manifest。
 
-### Phase 4 — Discovery 与 Transport Profiles
+## Phase 4 — Model Lineage / Distillation Profile
 
-可选 Profile：
+定义：
 
-- `.well-known` Provider capability discovery；
-- HTTPS record resolution；
-- structured clipboard carriage；
-- caching/mirroring；
-- offline proof bundles。
-
-退出条件：替换传输实现时不改变 Core verification。
-
-### Phase 5 — 现有标准 Adapter
-
-在适用场景开发对成熟生态的适配：
-
-- C2PA/content credentials；
-- DID/VC identity evidence；
-- X.509/domain identity；
-- transparency logs；
-- trusted timestamping；
-- media-specific watermark systems。
-
-退出条件：Adapter 保持 GCPP 的验证区分，同时不把任何单一外部标准变成强制依赖。
-
-### Phase 6 — Historical Evidence Profiles
-
-为 append-only 和时间/存在性证据定义统一接口：
-
-- transparency logs；
-- witnesses/cross-logging；
-- timestamp networks；
-- blockchain/distributed-ledger anchors；
-- future evidence systems。
-
-退出条件：Verifier 能独立比较历史保证强度，而不把它与 Actor Signature 的有效性混为一谈。
-
-### Phase 7 — Model Assurance Extensions
-
-可选、非热路径机制：
-
-- model commitments；
+- teacher/source model relation；
+- synthetic-data generator relation；
+- dataset commitment；
+- authorized distillation credential；
+- training-run attestation；
+- distillation-watermark evidence；
 - selective disclosure；
-- TEE/hardware attestation；
-- verifiable inference；
-- 在现实可行时使用 zero-knowledge execution proofs。
+- assurance states。
 
-退出条件：更强的模型保证不会追溯性改变普通 `MODEL_DECLARED` 记录的语义。
+退出条件：可以明确区分 self-declared lineage、committed lineage、attested lineage 与 probabilistic watermark indication。
 
-### Phase 8 — 互操作与标准化就绪
+## Phase 5 — 中国 GB 45438 Adapter
 
-在宣称稳定 1.0 前，应完成：
+定义中国监管标识映射：
 
-- 明确的 specification license/IPR policy；
-- 独立实现；
-- 完整正向/负向 test vectors；
-- security review；
-- privacy review；
-- internationalization review；
-- algorithm agility/deprecation procedure；
-- 与相邻标准关系的正式说明；
-- 稳定的 registry process。
+- `AIGC.Label`；
+- `ContentProducer`；
+- `ProduceID`；
+- `ContentPropagator`；
+- `PropagateID`；
+- Reserved security fields；
+- visible label state。
 
-### 路线图非目标
+要求：regulatory labeling 与 cryptographic provenance 分开报告。
 
-GCPP 不尝试构建全球内容审查权威、通用 AI 检测器、真相裁判、强制区块链或中央用户跟踪注册表。
+## Phase 6 — Existing-standard adapters
+
+继续支持：
+
+- DID / VC；
+- X.509/domain identity；
+- Transparency Log / Timestamp；
+- media-specific watermarks；
+- future execution attestations。
+
+## Phase 7 — Interoperability
+
+- machine-readable fixtures；
+- reference signer/verifier；
+- 至少两个独立实现；
+- security/privacy review；
+- algorithm agility/deprecation；
+- IPR/license policy。
+
+## 非目标
+
+GCPP 不构建：
+
+- 第二套 C2PA；
+- 全球 AI 审批中心；
+- 通用 AI 检测器；
+- 真相裁判；
+- 强制区块链；
+- 用户追踪系统。
 
 ---
 
 # English
 
-This roadmap is about standards maturity, not product delivery dates.
+Starting with 0.2, the roadmap treats GCPP as a **C2PA-compatible generative provenance extension/profile suite**, not a replacement universal credential format.
 
-## Phase 0 — Architecture freeze for Core concepts
+Key phases are: C2PA alignment, a C2PA-based Internet Profile, text integrity, durable text locator recovery, model-lineage/distillation provenance, a China GB 45438 adapter, additional identity/history adapters, and independent interoperability implementations.
 
-Goals:
-
-- stabilize the four durable abstractions: Identity, Provenance, Integrity, Evidence;
-- stabilize `GenerationID` vs `RecoveryLocator` separation;
-- stabilize provenance DAG semantics;
-- stabilize verification vector and presentation labels;
-- freeze the rule that watermarks are discovery/recovery evidence, not final authentication;
-- freeze privacy and policy-neutrality invariants.
-
-Exit condition: no known requirement forces Core to depend on a specific blockchain, DID method, hash, signature, watermark, storage system, or AI architecture.
-
-## Phase 1 — Canonical Internet Profile
-
-Define a first interoperable deployment profile with concrete but replaceable choices:
-
-- canonical serialization;
-- signature envelope;
-- baseline hash/commitment schemes;
-- key identifiers;
-- record size limits;
-- deterministic canonicalization;
-- error behavior;
-- self-contained and sidecar proof packaging.
-
-Exit condition: independently implemented sign/verify code produces identical signature inputs and results.
-
-## Phase 2 — Text Integrity Profile
-
-Define:
-
-- `norm.text-plain-1`;
-- exact normalized-text binding;
-- robust segment/chunk binding;
-- content-defined or structurally aware segmentation;
-- authenticated coverage calculation;
-- normalization conformance vectors.
-
-Exit condition: two independent implementations agree on exact and partial integrity results after common edits.
-
-## Phase 3 — Text Recovery Profile
-
-Research and standardize an efficient in-band recovery locator that:
-
-- does not require extra LLM inference passes;
-- does not require large candidate semantic reranking;
-- supports graceful abstention for short/low-entropy output;
-- provides ECC/synchronization;
-- has measured false-positive/false-negative behavior;
-- is tested across languages and common copy/edit paths;
-- treats recovery as discovery only.
-
-Exit condition: a candidate scheme passes published robustness, quality, throughput, spoofing, and transplant tests.
-
-## Phase 4 — Discovery and transport profiles
-
-Optional profiles for:
-
-- `.well-known` provider capability discovery;
-- HTTPS record resolution;
-- structured clipboard carriage;
-- caching/mirroring;
-- offline proof bundles.
-
-Exit condition: transport can be replaced without changing Core verification.
-
-## Phase 5 — Existing-standard adapters
-
-Develop adapters for mature ecosystems where useful:
-
-- C2PA/content credentials;
-- DID/VC identity evidence;
-- X.509/domain identity;
-- transparency logs;
-- trusted timestamping;
-- media-specific watermark systems.
-
-Exit condition: adapters preserve GCPP verification distinctions without making any one external standard mandatory.
-
-## Phase 6 — Historical evidence profiles
-
-Define common interfaces for append-only and time/existence evidence:
-
-- transparency logs;
-- witnesses/cross-logging;
-- timestamp networks;
-- blockchain/distributed-ledger anchors;
-- future evidence systems.
-
-Exit condition: verifiers can compare history assurance independently from actor signature validity.
-
-## Phase 7 — Model assurance extensions
-
-Optional, non-hot-path mechanisms:
-
-- model commitments;
-- selective disclosure;
-- TEE/hardware attestation;
-- verifiable inference;
-- zero-knowledge execution proofs when practical.
-
-Exit condition: stronger model assurance does not retroactively redefine ordinary `MODEL_DECLARED` records.
-
-## Phase 8 — Interoperability and standardization readiness
-
-Before a stable 1.0 claim:
-
-- explicit specification license/IPR policy;
-- independent implementations;
-- complete positive/negative test vectors;
-- security review;
-- privacy review;
-- internationalization review;
-- algorithm agility/deprecation procedure;
-- documented relationship to adjacent standards;
-- stable registry process.
-
-## Non-goals for the roadmap
-
-GCPP will not attempt to build a global content-moderation authority, universal AI detector, truth oracle, mandatory blockchain, or central user-tracking registry.
+The durable-text baseline must not require extra LLM passes, large multi-candidate semantic reranking, per-token network/ledger operations, or per-token ZK proofs.

@@ -1,75 +1,55 @@
 # GCPP 规范集合 / GCPP Specification Set
 
-> **默认语言：简体中文（zh-CN）**。中文完整版本在前，英文完整镜像在后。
->
-> **Default language: Simplified Chinese (zh-CN).** The complete Chinese version appears first, followed by the complete English mirror.
+> 默认语言：简体中文（zh-CN） / Default language: Simplified Chinese (zh-CN)
 
-## 简体中文
+# 简体中文
 
-本目录包含 Generative Content Provenance Protocol（GCPP）的规范性和规范前（pre-normative）协议文档。
+## 当前规范定位
 
-### 当前 Working Draft
+GCPP 0.2 是**面向生成式 AI 的 C2PA 兼容扩展/Profile 规范集合**。C2PA 已经成熟定义的通用 Content Credentials 能力不再由 GCPP 平行重定义。
 
-- `GCPP-CORE.md` — 范围、不变量、分层模型和抽象协议语义。
-- `GCPP-DATA-MODEL.md` — 与具体实现无关的对象模型。
-- `GCPP-VERIFY.md` — Verification Vector、状态语义和可互操作标签。
-- `GCPP-THREAT-MODEL.md` — 对手、非目标、残余风险、隐私与可用性威胁。
+## 规范文档
 
-### Profile 文档
+- `GCPP-CORE.md` — 生成式 provenance 核心语义与不变量；
+- `GCPP-C2PA-ALIGNMENT.md` — GCPP 与 C2PA 的映射和边界；
+- `GCPP-DATA-MODEL.md` — 抽象数据模型（后续需根据 0.2 scope 继续收敛）；
+- `GCPP-VERIFY.md` — Verification Vector 与展示语义；
+- `GCPP-THREAT-MODEL.md` — 威胁模型；
+- `GCPP-MODEL-LINEAGE.md` — 模型训练/蒸馏血缘语义。
 
-Profile 选择可替换技术或媒体特定行为，而不改变 Core Semantics。
+## Profiles
 
-- `../profiles/GCPP-TEXT-0.1.md` — 实验性纯文本来源与 Robust Locator Profile。
+- `../profiles/GCPP-TEXT-0.1.md` — 低开销纯文本 Durable Locator / RID Profile。
 
-### 支撑标准材料
+## Research
 
-- `../registries/README.md` — 初始参数 Registry 框架。
-- `../test-vectors/README.md` — 必需一致性测试案例。
-- `../governance/PROCESS.md` — 标准成熟度与变更流程。
-- `../ROADMAP.md` — 标准路线图。
+- `../research/CHINA-AIGC-LABELING.md` — 中国 GB 45438—2025 与主流平台标识体系研究；
+- `../research/DISTILLATION-PROVENANCE.md` — 蒸馏与来源继承研究。
 
-### 规范边界
+## Supporting material
 
-标记为 **Working Draft** 的文档并不稳定。只有在满足互操作性和安全标准后，项目才会明确标记 Candidate Draft 和 Stable Standard 成熟度。
+- `../registries/README.md` — Registry framework；
+- `../test-vectors/README.md` — Conformance test plan；
+- `../governance/PROCESS.md` — Standards process；
+- `../ROADMAP.md` — 0.2 路线图。
 
-仓库目前尚无最终 Internet Deployment Profile。因此被标记为 `provisional` 的 Identifier、Algorithm、Media Type 和具体 Serialization Choice 都不是永久的互操作保证。
+## 规范边界
 
-### 设计规则
+如果能力已经可以通过 C2PA Manifest、Claim、Hard/Soft Binding、Actions、Ingredients、Manifest Repository 等表达，GCPP **SHOULD NOT** 创建并行通用格式。
 
-如果新技术能够以 Registry Entry、Adapter、Carrier、Evidence Scheme 或 Deployment Profile 的形式引入，就不应要求修改 Core Semantics。
+GCPP 新规范必须主要解决生成式 AI 特有问题，例如：
+
+- single Generation identity；
+- GID/RID separation；
+- robust plain-text recovery；
+- partial attribution；
+- model assurance；
+- model training/distillation lineage。
 
 ---
 
 # English
 
-This directory contains the normative and pre-normative protocol documents for the Generative Content Provenance Protocol.
+GCPP 0.2 is a **C2PA-compatible generative provenance extension/profile suite**. It does not redefine mature C2PA Content Credentials mechanisms in parallel.
 
-## Current working drafts
-
-- `GCPP-CORE.md` — scope, invariants, layer model, abstract protocol semantics.
-- `GCPP-DATA-MODEL.md` — implementation-independent object model.
-- `GCPP-VERIFY.md` — verification vector, state semantics, and interoperable labels.
-- `GCPP-THREAT-MODEL.md` — adversaries, non-goals, residual risk, privacy and availability threats.
-
-## Profile documents
-
-Profiles select replaceable technologies or media-specific behavior without changing Core semantics.
-
-- `../profiles/GCPP-TEXT-0.1.md` — experimental plain-text provenance and robust locator profile.
-
-## Supporting standards material
-
-- `../registries/README.md` — initial parameter registry framework.
-- `../test-vectors/README.md` — required conformance cases.
-- `../governance/PROCESS.md` — standards maturity and change process.
-- `../ROADMAP.md` — standards roadmap.
-
-## Normative boundary
-
-A document labelled **Working Draft** is not stable. The project will explicitly mark Candidate Draft and Stable Standard maturity when interoperability and security criteria are met.
-
-The repository currently has no final Internet deployment profile. Therefore identifiers, algorithms, media types, and concrete serialization choices marked `provisional` are not permanent interoperability guarantees.
-
-## Design rule
-
-If a new technology can be introduced as a registry entry, adapter, carrier, evidence scheme, or deployment profile, it should not require a Core semantic change.
+Current normative/pre-normative documents cover Core semantics, C2PA alignment, abstract data model, verification, threat model, model lineage, and the low-overhead text locator profile. Informative research notes cover China's GB 45438 labeling ecosystem and provenance inheritance through distillation.
