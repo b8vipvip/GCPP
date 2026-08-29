@@ -1,0 +1,38 @@
+# F0 research rules. These are test-profile rules, NOT a GCPP Core ontology.
+
+# RULE: authenticated actor may be conservatively weakened to identifier-present.
+CONSTRUCT {
+  ?actor <urn:gcpp:research:#actorIdentifierPresent> true .
+}
+WHERE {
+  ?asset <urn:gcpp:research:#authenticatedActor> ?actor .
+}
+---RULE---
+# RULE: a generated part can establish an existential whole-object claim,
+# but NOT a whole-object generated-by claim.
+CONSTRUCT {
+  ?whole <urn:gcpp:research:#containsSomeGeneratedContentBy> ?model .
+}
+WHERE {
+  ?part <urn:gcpp:research:#generatedBy> ?model ;
+        <urn:gcpp:research:#partOf> ?whole .
+}
+---RULE---
+# RULE: an expected-but-unchecked evidence layer yields coverage-incomplete.
+CONSTRUCT {
+  ?audit <urn:gcpp:research:#coverageIncomplete> true .
+}
+WHERE {
+  ?audit <urn:gcpp:research:#expectsLayer> ?layer .
+  FILTER NOT EXISTS { ?audit <urn:gcpp:research:#checkedLayer> ?layer }
+}
+---RULE---
+# RULE: explicitly exclusive-human-origin conflicts with positive AI-origin
+# evidence on the same research target. Real profiles must align scope/time.
+CONSTRUCT {
+  ?asset <urn:gcpp:research:#semanticConflict> true .
+}
+WHERE {
+  ?asset <urn:gcpp:research:#exclusiveHumanOrigin> true ;
+         <urn:gcpp:research:#aiOriginSignalPositive> true .
+}
