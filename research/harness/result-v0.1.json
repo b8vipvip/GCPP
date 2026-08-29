@@ -1,0 +1,25 @@
+{
+  "environment": {
+    "date": "2026-08-29",
+    "engine": "RDFLib",
+    "rdflib_version": "7.5.0",
+    "rule_mechanism": "SPARQL CONSTRUCT fixed point",
+    "query_mechanism": "SPARQL ASK",
+    "independent_second_evaluator": false
+  },
+  "passed": 10,
+  "total": 10,
+  "vectors": [
+    {"vector_id":"V1_SCOPE_LAUNDERING","expected":"NOT_ENTAILED","actual":"NOT_ENTAILED","pass":true},
+    {"vector_id":"V2_SAFE_WEAKENING","expected":"ENTAILED","actual":"ENTAILED","pass":true},
+    {"vector_id":"V3_WATERMARK_ESCALATION","expected":"NOT_ENTAILED","actual":"NOT_ENTAILED","pass":true},
+    {"vector_id":"V4_MODEL_LINEAGE_ESCALATION","expected":"NOT_ENTAILED","actual":"NOT_ENTAILED","pass":true},
+    {"vector_id":"V5_OMISSION_COVERAGE","expected":"COVERAGE_INCOMPLETE","actual":"COVERAGE_INCOMPLETE","pass":true},
+    {"vector_id":"V6_CROSS_LAYER_CONFLICT","expected":"CONFLICT","actual":"CONFLICT","pass":true},
+    {"vector_id":"V7_UNKNOWN_PROFILE","expected":"UNKNOWN","actual":"UNKNOWN","pass":true},
+    {"vector_id":"V8_PAST_CURRENT_VALIDITY","expected":"NOT_ENTAILED","actual":"NOT_ENTAILED","pass":true},
+    {"vector_id":"V9_NORMALIZED_TO_BYTE_EXACT","expected":"NOT_ENTAILED","actual":"NOT_ENTAILED","pass":true},
+    {"vector_id":"V10_PARTIAL_TO_EXISTENTIAL_WHOLE","expected":"ENTAILED","actual":"ENTAILED","pass":true}
+  ],
+  "interpretation": "All first-round vectors matched expected results in one RDF/SPARQL evaluator. This does not establish cross-implementation conformance and does not justify a normative GCPP Core."
+}
