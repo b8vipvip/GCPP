@@ -1,0 +1,85 @@
+{
+  "prefixes": "@prefix ex: <urn:gcpp:research:#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n",
+  "vectors": [
+    {
+      "id": "V1_SCOPE_LAUNDERING",
+      "input": "ex:P1 ex:generatedBy ex:ModelM ; ex:partOf ex:DocD .",
+      "ask": "ASK { ex:DocD ex:generatedBy ex:ModelM . }",
+      "true_result": "ENTAILED",
+      "false_result": "NOT_ENTAILED",
+      "expected": "NOT_ENTAILED"
+    },
+    {
+      "id": "V2_SAFE_WEAKENING",
+      "input": "ex:Asset ex:authenticatedActor ex:ProviderA .",
+      "ask": "ASK { ex:ProviderA ex:actorIdentifierPresent true . }",
+      "true_result": "ENTAILED",
+      "false_result": "NOT_ENTAILED",
+      "expected": "ENTAILED"
+    },
+    {
+      "id": "V3_WATERMARK_ESCALATION",
+      "input": "ex:Asset ex:watermarkDetected ex:ProviderA .",
+      "ask": "ASK { ex:Asset ex:authenticatedActor ex:ProviderA . }",
+      "true_result": "ENTAILED",
+      "false_result": "NOT_ENTAILED",
+      "expected": "NOT_ENTAILED"
+    },
+    {
+      "id": "V4_MODEL_LINEAGE_ESCALATION",
+      "input": "ex:ModelM ex:trainedOn ex:DatasetD . ex:OutputO ex:generatedBy ex:ModelM .",
+      "ask": "ASK { ex:OutputO ex:sourcedFrom ex:DatasetD . }",
+      "true_result": "ENTAILED",
+      "false_result": "NOT_ENTAILED",
+      "expected": "NOT_ENTAILED"
+    },
+    {
+      "id": "V5_OMISSION_COVERAGE",
+      "input": "ex:Audit ex:expectsLayer ex:C2PA ; ex:expectsLayer ex:Watermark ; ex:checkedLayer ex:C2PA .",
+      "ask": "ASK { ex:Audit ex:coverageIncomplete true . }",
+      "true_result": "COVERAGE_INCOMPLETE",
+      "false_result": "COVERAGE_COMPLETE",
+      "expected": "COVERAGE_INCOMPLETE"
+    },
+    {
+      "id": "V6_CROSS_LAYER_CONFLICT",
+      "input": "ex:Asset ex:exclusiveHumanOrigin true ; ex:aiOriginSignalPositive true .",
+      "ask": "ASK { ex:Asset ex:semanticConflict true . }",
+      "true_result": "CONFLICT",
+      "false_result": "NO_CONFLICT_DETECTED",
+      "expected": "CONFLICT"
+    },
+    {
+      "id": "V7_UNKNOWN_PROFILE",
+      "input": "ex:Asset ex:unknownRelation ex:Source .",
+      "ask": "ASK { ex:Asset ex:derivedFrom ex:Source . }",
+      "true_result": "ENTAILED",
+      "false_result": "UNKNOWN",
+      "expected": "UNKNOWN"
+    },
+    {
+      "id": "V8_PAST_CURRENT_VALIDITY",
+      "input": "ex:Credential ex:validAt ex:T1 .",
+      "ask": "ASK { ex:Credential ex:currentlyValid true . }",
+      "true_result": "ENTAILED",
+      "false_result": "NOT_ENTAILED",
+      "expected": "NOT_ENTAILED"
+    },
+    {
+      "id": "V9_NORMALIZED_TO_BYTE_EXACT",
+      "input": "ex:A ex:normalizedTextEqual ex:B .",
+      "ask": "ASK { ex:A ex:byteExactEqual ex:B . }",
+      "true_result": "ENTAILED",
+      "false_result": "NOT_ENTAILED",
+      "expected": "NOT_ENTAILED"
+    },
+    {
+      "id": "V10_PARTIAL_TO_EXISTENTIAL_WHOLE",
+      "input": "ex:P1 ex:generatedBy ex:ModelM ; ex:partOf ex:DocD .",
+      "ask": "ASK { ex:DocD ex:containsSomeGeneratedContentBy ex:ModelM . }",
+      "true_result": "ENTAILED",
+      "false_result": "NOT_ENTAILED",
+      "expected": "ENTAILED"
+    }
+  ]
+}
