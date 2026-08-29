@@ -31,6 +31,14 @@ GCPP Core is intended to remain:
 
 A blockchain can carry historical evidence, but GCPP does not require a blockchain. DID can implement identity, but GCPP does not require DID. SHA-256 or Ed25519 can appear in an Internet profile, but they are not permanent Core assumptions.
 
+## Development handoff
+
+For the complete current repository state, architecture decisions, confirmed constraints, open issues, unfinished work, and the exact continuation plan for a new development session, read:
+
+**[`DEVELOPMENT_STATUS.md`](DEVELOPMENT_STATUS.md)**
+
+This file is the preferred handoff entry point before making further protocol changes.
+
 ## Non-negotiable semantics
 
 1. `VERIFIED` provenance does **not** mean factually true.
