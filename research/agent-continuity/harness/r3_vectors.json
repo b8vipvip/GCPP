@@ -1,0 +1,100 @@
+{
+  "status": "research-prototype",
+  "date": "2026-08-29",
+  "purpose": "A0-R3 multi-authority succession falsification vectors. Not normative protocol tests.",
+  "vectors": [
+    {
+      "id": "R3-T1-MULTI-ISSUER-FORK",
+      "mode": "atomic",
+      "required_relationships": ["spend", "license"],
+      "expected_successor": "B",
+      "decisions": [
+        {"authority":"bank","relationship":"spend","status":"ACK","successor":"B","version":1,"exclusive":true},
+        {"authority":"license-authority","relationship":"license","status":"ACK","successor":"C","version":1,"exclusive":true}
+      ],
+      "expected": "UNRESOLVED"
+    },
+    {
+      "id": "R3-T2-OBLIGATION-DOUBLE-ASSIGNMENT",
+      "mode": "transfer",
+      "relationship": "obligation-1",
+      "successor": "B",
+      "current_version": 2,
+      "request_version": 2,
+      "decisions": [
+        {"authority":"customer","relationship":"obligation-1","status":"ACK","successor":"B","version":2,"exclusive":true},
+        {"authority":"customer","relationship":"obligation-1","status":"ACK","successor":"C","version":2,"exclusive":true}
+      ],
+      "expected": "CONFLICT"
+    },
+    {
+      "id": "R3-T3-SUCCESSOR-RACE",
+      "mode": "transfer",
+      "relationship": "spend",
+      "successor": "B",
+      "current_version": 5,
+      "request_version": 4,
+      "decisions": [
+        {"authority":"bank","relationship":"spend","status":"ACK","successor":"B","version":5,"exclusive":true}
+      ],
+      "expected": "REJECT_STALE"
+    },
+    {
+      "id": "R3-T4-PROVIDER-DIES-MID-SUCCESSION",
+      "mode": "transfer",
+      "relationship": "provider-standing",
+      "successor": "B",
+      "current_version": 3,
+      "request_version": 3,
+      "decisions": [
+        {"authority":"provider","relationship":"provider-standing","status":"UNAVAILABLE","version":3,"exclusive":true}
+      ],
+      "expected": "UNRESOLVED"
+    },
+    {
+      "id": "R3-T5-REPUTATION-SPLIT",
+      "mode": "transfer",
+      "relationship": "reputation",
+      "successor": "B",
+      "current_version": 1,
+      "request_version": 1,
+      "decisions": [
+        {"authority":"rater","relationship":"reputation","status":"REISSUE_REQUIRED","version":1,"exclusive":false}
+      ],
+      "expected": "REISSUE_REQUIRED"
+    },
+    {
+      "id": "R3-T6-MERGE-CONFLICTING-DUTIES",
+      "mode": "atomic",
+      "required_relationships": ["duty-A", "duty-B"],
+      "expected_successor": "C",
+      "decisions": [
+        {"authority":"counterparty-A","relationship":"duty-A","status":"ACK","successor":"C","version":1,"exclusive":false},
+        {"authority":"counterparty-B","relationship":"duty-B","status":"CONFLICT","successor":"C","version":1,"exclusive":false}
+      ],
+      "expected": "CONFLICT"
+    },
+    {
+      "id": "R3-T7-REVOCATION-DURING-SUCCESSION",
+      "mode": "transfer",
+      "relationship": "grant",
+      "successor": "B",
+      "current_version": 9,
+      "request_version": 8,
+      "decisions": [
+        {"authority":"issuer","relationship":"grant","status":"ACK","successor":"B","version":8,"exclusive":true}
+      ],
+      "expected": "REJECT_STALE"
+    },
+    {
+      "id": "R3-T8-PARTIAL-EVIDENCE-LOSS",
+      "mode": "atomic",
+      "required_relationships": ["spend", "contract"],
+      "expected_successor": "B",
+      "decisions": [
+        {"authority":"bank","relationship":"spend","status":"ACK","successor":"B","version":1,"exclusive":true}
+      ],
+      "expected": "UNRESOLVED"
+    }
+  ]
+}
