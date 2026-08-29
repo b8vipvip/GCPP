@@ -1,0 +1,20 @@
+{
+  "status": "research-hypothesis",
+  "version": "e0.1",
+  "date": "2026-08-29",
+  "purpose": "Machine-readable adversarial vectors for epistemic interoperability research. Not a protocol conformance suite.",
+  "vectors": [
+    {"id":"E0-T1-SAME-MODEL-CLONES","risk":"false_independence","expected":"NO_CONFIDENCE_AMPLIFICATION"},
+    {"id":"E0-T2-DIFFERENT-MODELS-SAME-RAG","risk":"shared_evidence_double_count","expected":"DEPENDENT_SUPPORT"},
+    {"id":"E0-T3-COPY-AFTER-COMMUNICATION","risk":"derived_judgment_counted_independent","expected":"REDUNDANT_OR_DEPENDENT_SUPPORT"},
+    {"id":"E0-T4-DEBATE-NO-NEW-EVIDENCE","risk":"consensus_mistaken_for_information_gain","expected":"NO_AUTOMATIC_EVIDENCE_GAIN"},
+    {"id":"E0-T5-SAME-NUMBER-DIFFERENT-MEANING","risk":"metric_semantic_collision","expected":"INCOMPARABLE_MEASURES"},
+    {"id":"E0-T6-CALIBRATION-DOMAIN-TRANSFER","risk":"out_of_domain_calibration","expected":"OUT_OF_CALIBRATION_DOMAIN"},
+    {"id":"E0-T7-DISTRIBUTION-SHIFT","risk":"stale_coverage_guarantee","expected":"DOWNGRADE_OR_RECALIBRATE"},
+    {"id":"E0-T8-HIDDEN-SHARED-BASE","risk":"unknown_dependency","expected":"DO_NOT_ASSUME_INDEPENDENCE"},
+    {"id":"E0-T9-ADVERSARIAL-CONFIDENCE","risk":"self_report_as_reliability","expected":"UNVERIFIED_SELF_REPORT"},
+    {"id":"E0-T10-SAME-MODEL-INDEPENDENT-SENSORS","risk":"over_deduplication","expected":"MODEL_DEPENDENCE_DOES_NOT_ERASE_EVIDENCE_DIVERSITY"},
+    {"id":"E0-T11-SAME-EVIDENCE-DIFFERENT-METHODS","risk":"binary_dependence_oversimplification","expected":"DEPENDENT_BUT_POSSIBLY_NONZERO_MARGINAL_SUPPORT"},
+    {"id":"E0-T12-LATE-DEPENDENCY-DISCOVERY","risk":"irreversible_false_confidence","expected":"ALLOW_ASSESSMENT_DOWNGRADE"}
+  ]
+}
