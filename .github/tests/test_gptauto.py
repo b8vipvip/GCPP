@@ -6,8 +6,16 @@ from gptauto.engine import begin_verify,criterion,finish,gate,is_complete,plan_r
 from gptauto.model import CriterionStatus,Gate,GateStatus,Task
 from gptauto.planner import GoalPlanner
 class GPTAutoEmbeddedTests(unittest.TestCase):
- def test_dynamic_merge_goal(self):
-  t=Task("t","完成修改并合并到 main","b8vipvip/GCPP",[]);start(t);GoalPlanner().apply(t);plan_ready(t);gs=[x.gate for x in t.plan];self.assertIn(Gate.MERGE,gs);self.assertNotIn(Gate.RELEASE,gs)
+    def make(self,goal):
+        t=Task("t",goal,"b8vipvip/GCPP",[]);start(t);GoalPlanner().apply(t);plan_ready(t);return t
+    def test_dynamic_merge_goal(self):
+        t=self.make("完成修改并合并到 main");gs=[x.gate for x in t.plan];self.assertIn(Gate.MERGE,gs);self.assertNotIn(Gate.RELEASE,gs)
+    def test_done_requires_dod_evidence(self):
+        t=self.make("修改文档")
+        for s in t.plan:gate(t,s.gate,GateStatus.PASSED,"ok")
+        begin_verify(t)
+        for i in range(len(t.definition_of_done)):criterion(t,i,CriterionStatus.PASSED,"verified")
+        finish(t);self.assertTrue(is_complete(t))
     def test_audit_bundle_is_generated(self):
         t=self.make("修改文档")
         with tempfile.TemporaryDirectory() as d:
